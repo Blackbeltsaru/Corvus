@@ -48,5 +48,11 @@ export default class Logger {
         this.advancedLog(LogLevel.FATAL, msg, ...args);
         this.advancedLog(LogLevel.FATAL, this.stacktrace());
     };
+
+    assert(condition, errorMessage) {
+        if(!condition) {
+            throw new Error(errorMessage);
+        }
+    }
 }
 
