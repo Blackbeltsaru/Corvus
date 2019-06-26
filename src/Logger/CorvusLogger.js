@@ -8,6 +8,7 @@ export default class CorvusLogger {
     static GetClientLogger() {return CorvusLogger.clientLogger}
 
     static init() {
+        //TODO: get the log level from some properties 
         if(!CorvusLogger.coreLogger)
             CorvusLogger.coreLogger = new Logger('CORVUS', LogLevel.INFO);
         if(!CorvusLogger.clientLogger)    

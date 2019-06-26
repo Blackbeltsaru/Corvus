@@ -10,7 +10,6 @@ export default class Logger {
         this._level = level;
 
         this.advancedLog.bind(this);
-        this.stacktrace.bind(this);
     }
 
     stacktrace() { 
@@ -21,7 +20,7 @@ export default class Logger {
     advancedLog(level, msg, ...args) {
         if(this._level.value > level.value) return;
         const logTime = new Date().toTimeString().split(' ')[0];
-        console[level.method](`[${logTime}] ${this._id} :: ${msg}`);
+        console[level.method](`[${logTime}] ${this._id} :: ${msg}`, ...args);
     };
 
     trace(msg, ...args) {

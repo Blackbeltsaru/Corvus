@@ -1,8 +1,9 @@
 import CorvusLogger from './Logger/CorvusLogger';
 
-export default function main (application) {
+export default function Corvus (application) {
     CorvusLogger.init();
-    CorvusLogger.coreLogger.info('Core logger');
-    CorvusLogger.clientLogger.info('Client logger');
-    // application.run();
+    CorvusLogger.coreLogger.warn('Initializing Logger');
+    
+    const app = application.createApplication();
+    app.run();
 }
