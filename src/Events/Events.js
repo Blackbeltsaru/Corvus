@@ -1,10 +1,9 @@
 import {BIT} from '../Core/Application';
 import NotImplementedError from '../Error/NotImplementedError';
 
-
-//TODO: there is a lot of duplicated code in the event classes.
-//In addition there is code that should be debug only
-//Find a way to abstract that code out so that at build time code is injected properly
+/**
+ * An enum to represent the different types of events that exist
+ */
 export const Events = Object.freeze({
     None: 0,
     WindowClose: 1,
@@ -24,6 +23,11 @@ export const Events = Object.freeze({
     MouseScrolled: 15,
 });
 
+/**
+ * An enum to represent the different types of event categories that exist
+ * These are bit fields because an event can belong to multiple event categories
+ * So bit fields make containment checking easy
+ */
 export const EventCategories = Object.freeze({
     ApplicationCategory: BIT(0),
     InputCategory: BIT(1),
@@ -33,41 +37,42 @@ export const EventCategories = Object.freeze({
 
 })
 
+/**
+ * Abstract class to represent all events that will be used by the application. 
+ */
 export class Event {
     constructor() {
         this.toString = this.toString.bind(this);
     }
 
-    _handled = false;
+    handled = false;
 
-    getEventType() {
-        throw new NotImplementedError();
-    }
-    getName() {
-        throw new NotImplementedError();
-    }
-    getCategoryFlags() {
-        throw new NotImplementedError();
-    }
-    toString() {
-        return this.getName();
-    }
 
-    isInCategory(eventCategory) {
-        return this.getCategoryFlags() & eventCategory;
-    }
+    getName() {throw new NotImplementedError();}
+    getCategoryFlags() {throw new NotImplementedError();}
+
+    getEventType() {return this.getStaticType();}
+    toString() {return this.getName();}
+    isInCategory(eventCategory) {return this.getCategoryFlags() & eventCategory;}
 }
 
+/**
+ * A class to enable the dispatch of events
+ * Checks that the types are ones that can be propagated and 
+ */
 export class EventDispatcher {
 
-    _event;
+    m_Event;
     constructor(event) {
-        this._event = event;
+        this.m_Event = event;
     }
 
+    /**
+     * Dispatches my event with the given function if it is of given type
+     */
     dispatch(type, eventFunc) {
-        if(this._event.getEventType() === type.getStaticType()) {
-            this._event.handled = eventFunc(this._event);
+        if(this.m_Event.getEventType() === type.getStaticType()) {
+            this.m_Event.handled = eventFunc(this.m_Event);
             return true;
         }
         return false;

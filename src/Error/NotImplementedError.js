@@ -1,3 +1,6 @@
+/**
+ * An error used to create abstract methods
+ */
 class NotImplementedError extends Error {
     constructor(...params) {
         super(...params);

@@ -1,3 +1,6 @@
+/**
+ * An enum to represent the possible log levels
+ */
 export default {
     TRACE: {value: 1, method: 'trace'},
     DEBUG: {value: 2, method: 'debug'},

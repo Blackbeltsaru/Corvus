@@ -2,32 +2,29 @@ import {Event, Events, EventCategories} from './Events';
 
 export class KeyEvent extends Event {
 
-    _keyCode;
+    m_KeyCode;
     constructor(keyCode) {
         super();
-        this._keyCode = keyCode;
+        this.m_KeyCode = keyCode;
     }
 
-    getKeyCode() {return this._keyCode;}
-
+    getKeyCode() {return this.m_KeyCode;}
     getCategoryFlags() {return EventCategories.KeyboardCategory | EventCategories.InputCategory;}
 }
 
 export class KeyPressedEvent extends KeyEvent {
 
-    _repeatCount;
+    m_RepeatCount;
     constructor(keyCode, repeatCount) {
         super(keyCode);
-        this._repeatCount = repeatCount;
+        this.m_RepeatCount = repeatCount;
     }
 
-    getRepeatCount() {return this._repeatCount;}
-
-    toString() {return `KeyPressedEvent: ${this._keyCode} (${this._repeatCount} repeats)`;}
+    getRepeatCount() {return this.m_RepeatCount;}
+    toString() {return `KeyPressed: ${this.m_KeyCode} (${this.m_RepeatCount} repeats)`;}
     
-    static getStaticType() {return Events.KeyPressed};
-    getEventType() {return this.getStaticType()};
-    getName() {return 'KeyPressed'}
+    static getStaticType() {return Events.KeyPressed;}
+    getName() {return 'KeyPressed';}
 }
 
 export class KeyReleasedEvent extends KeyEvent {
@@ -36,11 +33,10 @@ export class KeyReleasedEvent extends KeyEvent {
         super(keyCode);
     }
 
-    toString() {return `KeyReleasedEvent: ${this._keyCode}`;}
+    toString() {return `KeyReleasedEvent: ${this.m_KeyCode}`;}
     
-    static getStaticType() {return Events.KeyReleased};
-    getEventType() {return this.getStaticType()};
-    getName() {return 'KeyReleased'}
+    static getStaticType() {return Events.KeyReleased;}
+    getName() {return 'KeyReleased';}
 }
 
 export class KeyTypedEvent extends KeyEvent {
@@ -49,9 +45,8 @@ export class KeyTypedEvent extends KeyEvent {
         super(keyCode);
     }
 
-    toString() {return `KeyTypedEvent: ${this._keyCode}`;}
+    toString() {return `KeyTyped: ${this.m_KeyCode}`;}
 
-    static getStaticType() {return Events.KeyTyped};
-    getEventType() {return this.getStaticType()};
-    getName() {return 'KeyTypedEvent'}
+    static getStaticType() {return Events.KeyTyped;}
+    getName() {return 'KeyTyped';}
 }
