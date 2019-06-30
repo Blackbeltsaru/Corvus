@@ -4,6 +4,7 @@ export class KeyEvent extends Event {
 
     _keyCode;
     constructor(keyCode) {
+        super();
         this._keyCode = keyCode;
     }
 

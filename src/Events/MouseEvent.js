@@ -5,13 +5,14 @@ export class MouseMovedEvent extends Event {
     _mouseX;
     _mouseY;
     constructor(mouseX, mouseY) {
+        super();
         this._mouseX = mouseX;
         this._mouseY = mouseY;
     }
 
     getX() {return this._mouseX;}
     getY() {return this._mouseY;}
-    toString() {return `MouseMovedEvent: ${this.mouseX}, ${this.mouseY}`;}
+    toString() {return `MouseMovedEvent: ${this._mouseX}, ${this._mouseY}`;}
 
     
     static getStaticType() {return Events.MouseMoved};
@@ -26,6 +27,7 @@ export class MouseScrolledEvent extends Event {
     _xOffset;
     _yOffset;
     constructor(xOffset, yOffset) {
+        super();
         this._xOffset = xOffset;
         this._yOffset = yOffset;
     }
@@ -45,6 +47,7 @@ export class MouseButtonEvent extends Event {
 
     _button;
     constructor(button) {
+        super();
         this._button = button;
     }
 

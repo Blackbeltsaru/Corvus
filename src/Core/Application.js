@@ -20,13 +20,13 @@ class Application {
         Application._instance = this;
 
         this._window = WebWindow.create(new WindowProps());
-        this._window.setEventCallback(this.onEvent.bind(this));
+        this._window.setEventCallback(this.onEvent);
     }
 
     onEvent(event) {
-        let dispatcher = new EventDispatcher(e);
+        let dispatcher = new EventDispatcher(event);
         
-        CorvusLogger.GetCoreLogger().debug(`Event fireed: ${event}`)
+        CorvusLogger.GetCoreLogger().info(`Event fireed: ${event}`)
     }
 
     run() {
