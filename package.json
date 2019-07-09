@@ -3,6 +3,7 @@
     "description": "Simple web based game engine",
     "private": true,
     "version": "0.0.1",
+    "main": "index.js",
     "repository": {
         "type": "git",
         "url": "https://github.com/Blackbeltsaru/Corvus.git"
