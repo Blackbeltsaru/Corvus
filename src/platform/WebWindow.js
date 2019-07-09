@@ -23,7 +23,7 @@ class WebWindow extends Window {
     }
 
     static frameworkErrorCallback(error, description) {
-        CorvusLogger.GetCoreLogger().error(`Error in framework ${error}: ${description}`)
+        CorvusLogger.coreLogger.error(`Error in framework ${error}: ${description}`)
     }
 
     static create(props) {

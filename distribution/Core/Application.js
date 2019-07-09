@@ -66,13 +66,15 @@ var Application = function () {
         _classCallCheck(this, Application);
 
         //TODO: logging should be removed from release builds
-        _CorvusLogger2.default.GetCoreLogger().assert(!Application.getInstance(), "Application already exists");
+        _CorvusLogger2.default.coreLogger.debug('Constructing Application');
+        _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
         Application.s_Instance = this;
 
         this._Running = true;
         this._Window = _WebWindow2.default.create(new _Window.WindowProps());
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new _LayerStack2.default();
+        _CorvusLogger2.default.coreLogger.debug('Application constructed with ', this._Running, this._Window, this._LayerStack);
     }
 
     /**
@@ -86,7 +88,7 @@ var Application = function () {
         value: function onEvent(event) {
             var dispatcher = new _Events.EventDispatcher(event);
 
-            _CorvusLogger2.default.GetCoreLogger().info('Event fireed: ' + event);
+            _CorvusLogger2.default.coreLogger.info('Event fireed: ' + event);
 
             for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
                 this._LayerStack.get(it).onEvent(e);

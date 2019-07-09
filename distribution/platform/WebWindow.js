@@ -142,7 +142,7 @@ var WebWindow = function (_Window) {
     }], [{
         key: 'frameworkErrorCallback',
         value: function frameworkErrorCallback(error, description) {
-            _CorvusLogger2.default.GetCoreLogger().error('Error in framework ' + error + ': ' + description);
+            _CorvusLogger2.default.coreLogger.error('Error in framework ' + error + ': ' + description);
         }
     }, {
         key: 'create',

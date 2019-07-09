@@ -28,13 +28,15 @@ class Application {
      */
     constructor() {
         //TODO: logging should be removed from release builds
-        CorvusLogger.GetCoreLogger().assert(!Application.getInstance(), "Application already exists");
+        CorvusLogger.coreLogger.debug('Constructing Application');
+        CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
         Application.s_Instance = this;
 
         this._Running = true;
         this._Window = WebWindow.create(new WindowProps());
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
+        CorvusLogger.coreLogger.debug('Application constructed with ', this._Running, this._Window, this._LayerStack);
     }
 
     /**
@@ -44,7 +46,7 @@ class Application {
     onEvent(event) {
         let dispatcher = new EventDispatcher(event);
         
-        CorvusLogger.GetCoreLogger().info(`Event fireed: ${event}`)
+        CorvusLogger.coreLogger.info(`Event fireed: ${event}`)
 
         for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
             this._LayerStack.get(it).onEvent(e);
