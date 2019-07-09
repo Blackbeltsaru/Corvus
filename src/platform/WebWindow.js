@@ -104,8 +104,7 @@ class WebWindow extends Window {
 
     onUpdate(callback) {
         //TODO: what do I do here
-        CorvusLogger.GetCoreLogger().warn('typeof this.context = ', this._Window);
-        this._Window.requestAnimationFrame(callback)
+        // this._Window.requestAnimationFrame(callback)
     }
 
     setEventCallback(eventCallback) {
