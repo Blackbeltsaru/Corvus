@@ -10,8 +10,8 @@ export default class CorvusLogger {
     static init() {
         //TODO: get the log level from some properties 
         if(!CorvusLogger.coreLogger)
-            CorvusLogger.coreLogger = new Logger('CORVUS', LogLevel.INFO);
+            CorvusLogger.coreLogger = new Logger('CORVUS', LogLevel.TRACE);
         if(!CorvusLogger.clientLogger)    
-            CorvusLogger.clientLogger = new Logger('CLIENT', LogLevel.INFO);
+            CorvusLogger.clientLogger = new Logger('CLIENT', LogLevel.TRACE);
     }
 }

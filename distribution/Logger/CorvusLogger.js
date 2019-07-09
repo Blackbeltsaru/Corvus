@@ -40,8 +40,8 @@ var CorvusLogger = function () {
         key: 'init',
         value: function init() {
             //TODO: get the log level from some properties 
-            if (!CorvusLogger.coreLogger) CorvusLogger.coreLogger = new _Logger2.default('CORVUS', _LogLevel2.default.INFO);
-            if (!CorvusLogger.clientLogger) CorvusLogger.clientLogger = new _Logger2.default('CLIENT', _LogLevel2.default.INFO);
+            if (!CorvusLogger.coreLogger) CorvusLogger.coreLogger = new _Logger2.default('CORVUS', _LogLevel2.default.TRACE);
+            if (!CorvusLogger.clientLogger) CorvusLogger.clientLogger = new _Logger2.default('CLIENT', _LogLevel2.default.TRACE);
         }
     }]);
 
