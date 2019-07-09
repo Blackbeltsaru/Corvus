@@ -1,18 +1,18 @@
-"use module"
-
 import {Event, Events, EventCategories} from './Events';
 
 /**
  * An event to represent that the window has been resized
  */
 export class WindowResizeEvent extends Event {
-    _width;
-    _height;
+    //Class variables
+    // _width;
+    // _height;
     /**
      * @param {number} width the new width of the window
      * @param {number} height the new height of the window
      */
     constructor(width, height) {
+        super();
         this._width = width;
         this._height = height;
     }

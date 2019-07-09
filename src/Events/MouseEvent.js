@@ -4,8 +4,9 @@ import {Event, Events, EventCategories} from './Events';
 
 export class MouseMovedEvent extends Event {
 
-    _MouseX;
-    _MouseY;
+    //Class variables
+    // _MouseX;
+    // _MouseY;
     constructor(mouseX, mouseY) {
         super();
         this._MouseX = mouseX;
@@ -24,8 +25,9 @@ export class MouseMovedEvent extends Event {
 
 export class MouseScrolledEvent extends Event {
 
-    _XOffset;
-    _YOffset;
+    // Class variables
+    // _XOffset;
+    // _YOffset;
     constructor(xOffset, yOffset) {
         super();
         this._XOffset = xOffset;
@@ -43,7 +45,8 @@ export class MouseScrolledEvent extends Event {
 
 export class MouseButtonEvent extends Event {
 
-    _Button;
+    //Class variables
+    // _Button;
     constructor(button) {
         super();
         this._Button = button;

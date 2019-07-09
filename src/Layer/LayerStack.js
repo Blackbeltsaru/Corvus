@@ -2,8 +2,9 @@
 
 class LayerStack {
 
-    _Layers;
-    _LayerInsert;
+    //Class variables
+    // _Layers;
+    // _LayerInsert;
 
     constructor() {
         this._Layers = [];

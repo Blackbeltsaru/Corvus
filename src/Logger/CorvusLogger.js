@@ -4,8 +4,8 @@ import Logger from './Logger';
 import LogLevel from './LogLevel';
 
 export default class CorvusLogger {
-    static coreLogger;
-    static clientLogger;
+    // static coreLogger;
+    // static clientLogger;
     static GetCoreLogger() {return CorvusLogger.coreLogger};
     static GetClientLogger() {return CorvusLogger.clientLogger}
 

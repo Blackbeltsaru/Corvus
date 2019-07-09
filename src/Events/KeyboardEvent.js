@@ -4,7 +4,8 @@ import {Event, Events, EventCategories} from './Events';
 
 export class KeyEvent extends Event {
 
-    _KeyCode;
+    // Class variables
+    // _KeyCode;
     constructor(keyCode) {
         super();
         this._KeyCode = keyCode;
@@ -16,7 +17,8 @@ export class KeyEvent extends Event {
 
 export class KeyPressedEvent extends KeyEvent {
 
-    _RepeatCount;
+    // Class variables
+    // _RepeatCount;
     constructor(keyCode, repeatCount) {
         super(keyCode);
         this._RepeatCount = repeatCount;

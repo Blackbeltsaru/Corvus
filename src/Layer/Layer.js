@@ -5,9 +5,8 @@ import {NotImplementedError} from '../Error/NotImplementedError';
 class Layer {
 
     //TODO: debugName should be removed from release builds
-    _DebugName;
+    // _DebugName;
     constructor(name) {
-        super();
         //TODO: debugName should be removed from release builds
         this._DebugName = name;
     }

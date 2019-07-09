@@ -1,5 +1,3 @@
-"use module"
-
 /**
  * An error used to create abstract methods
  */

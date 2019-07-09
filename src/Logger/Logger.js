@@ -4,8 +4,9 @@ import LogLevel from './LogLevel';
 
 export default class Logger {
 
-    _Id;
-    _Level;
+    //Class variables
+    // _Id;
+    // _Level;
 
     constructor(id, level) {
         this._Id = id;

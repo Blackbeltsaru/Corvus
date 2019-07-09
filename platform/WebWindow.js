@@ -1,5 +1,3 @@
-"use module"
-
 import {Window} from '../src/Window/Window';
 import CorvusLogger from '../src/Logger/CorvusLogger';
 import NotImplementedError from '../src/Error/NotImplementedError';
@@ -11,9 +9,10 @@ const WindowData = (title, width, height, vSync, eventCallback) => ({title, widt
 
 class WebWindow extends Window {
 
-    _Window;
-    _Context;
-    _Data;
+    //Class variables
+    // _Window;
+    // _Context;
+    // _Data;
 
     static initialized = false;
 

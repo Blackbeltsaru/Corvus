@@ -3,9 +3,11 @@
 import NotImplementedError from '../Error/NotImplementedError';
 
 export class WindowProps {
-    title;
-    width;
-    height;
+
+    //Class variables 
+    // title;
+    // width;
+    // height;
 
     constructor(title = "Corvus Engine", width = 1280, height = 720) {
         this.title = title;
@@ -15,7 +17,9 @@ export class WindowProps {
 }
 
 export class Window {
-    eventCallbackFn;
+
+    //Class variables 
+    // eventCallbackFn;
 
     constructor() {
 

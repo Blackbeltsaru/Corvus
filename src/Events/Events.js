@@ -43,11 +43,15 @@ export const EventCategories = Object.freeze({
  * Abstract class to represent all events that will be used by the application. 
  */
 export class Event {
+
+    //Class variables 
+    // handled = false;
+    
     constructor() {
+        this.handled = false;
         this.toString = this.toString.bind(this);
     }
 
-    handled = false;
 
 
     getName() {throw new NotImplementedError();}
@@ -64,7 +68,8 @@ export class Event {
  */
 export class EventDispatcher {
 
-    _Event;
+    // Class variables
+    // _Event;
     constructor(event) {
         this._Event = event;
     }

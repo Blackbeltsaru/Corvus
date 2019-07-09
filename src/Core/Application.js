@@ -2,8 +2,6 @@ import CorvusLogger from '../Logger/CorvusLogger';
 import WebWindow from '../../platform/WebWindow';
 import {EventDispatcher} from '../Events/Events';
 import {WindowCloseEvent} from '../Events/ApplicationEvent'
-"use module"
-
 import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
@@ -14,11 +12,15 @@ export function BIT(x){return 1 << x};
 
 class Application {
 
-    _Window = null;
-    _Running = true;
-    _LayerStack;
+    //Class variables 
+    // _Window;
+    // _Running;
+    // _LayerStack;
 
-    static s_Instance = null;
+    // static s_Instance;
+    static getInstance() {
+        return Application.s_instance;
+    }
 
     /**
      * This initialized the application.
@@ -26,9 +28,10 @@ class Application {
      */
     constructor() {
         //TODO: logging should be removed from release builds
-        CorvusLogger.GetCoreLogger().assert(!Application.s_Instance, "Application already exists");
+        CorvusLogger.GetCoreLogger().assert(!Application.getInstance(), "Application already exists");
         Application.s_Instance = this;
 
+        this._Running = true;
         this._Window = WebWindow.create(new WindowProps());
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
@@ -66,7 +69,7 @@ class Application {
     /** @returns {Window} the current window of the application */
     getWindow() {return this._Window;}
     /** @returns {Application} the current instance of the application */
-    static get() {return Application.s_Instance;}
+    static get() {return Application.getInstance();}
 
     /**
      * A static method to create the application
