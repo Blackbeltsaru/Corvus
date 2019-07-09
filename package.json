@@ -1,5 +1,5 @@
 {
-    "name": "corvus-engine", 
+    "name": "corvus-engine",
     "description": "Simple web based game engine",
     "private": true,
     "version": "0.0.1",
@@ -7,10 +7,6 @@
         "type": "git",
         "url": "https://github.com/Blackbeltsaru/Corvus.git"
     },
-    "scripts": {
-
-    },
-    "dependencies": {
-        
-    }
+    "scripts": {},
+    "dependencies": {}
 }
