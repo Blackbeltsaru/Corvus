@@ -1,4 +1,7 @@
+import Application from './Core/Application';
+import EntryPoint from './EntryPoint';
+
 module.exports = {
-    Application: require('./Core/Application'),
-    Corvus: require('./EntryPoint')
+    Application: Application,
+    Corvus: EntryPoint,
 }
