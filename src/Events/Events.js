@@ -1,3 +1,5 @@
+"use module"
+
 import {BIT} from '../Core/Application';
 import NotImplementedError from '../Error/NotImplementedError';
 

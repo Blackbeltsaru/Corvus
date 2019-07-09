@@ -2,6 +2,8 @@ import CorvusLogger from '../Logger/CorvusLogger';
 import WebWindow from '../../platform/WebWindow';
 import {EventDispatcher} from '../Events/Events';
 import {WindowCloseEvent} from '../Events/ApplicationEvent'
+"use module"
+
 import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';

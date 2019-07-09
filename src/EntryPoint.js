@@ -1,3 +1,5 @@
+"use module"
+
 import CorvusLogger from './Logger/CorvusLogger';
 
 export default function Corvus (application) {

@@ -1,3 +1,5 @@
+"use module"
+
 import {Window} from '../src/Window/Window';
 import CorvusLogger from '../src/Logger/CorvusLogger';
 import NotImplementedError from '../src/Error/NotImplementedError';

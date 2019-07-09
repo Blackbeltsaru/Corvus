@@ -1,3 +1,5 @@
+"use module"
+
 import {Event, Events, EventCategories} from './Events';
 
 /**
