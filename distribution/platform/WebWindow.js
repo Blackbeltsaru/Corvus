@@ -133,7 +133,7 @@ var WebWindow = function (_Window) {
         value: function onUpdate(callback) {
             //TODO: what do I do here
             _CorvusLogger2.default.GetCoreLogger().warn('typeof this.context = ', this._Context);
-            this._Context.requestAnimationFrame(callback);
+            this._Window.requestAnimationFrame(callback);
         }
     }, {
         key: 'setEventCallback',
