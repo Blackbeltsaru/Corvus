@@ -1,8 +1,8 @@
-import {Window} from '../src/Window/Window';
-import CorvusLogger from '../src/Logger/CorvusLogger';
-import NotImplementedError from '../src/Error/NotImplementedError';
-import {KeyPressedEvent, KeyReleasedEvent} from '../src/Events/KeyboardEvent';
-import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../src/Events/MouseEvent';
+import {Window} from '../Window/Window';
+import CorvusLogger from '../Logger/CorvusLogger';
+import NotImplementedError from '../Error/NotImplementedError';
+import {KeyPressedEvent, KeyReleasedEvent} from '../Events/KeyboardEvent';
+import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../Events/MouseEvent';
 
 /** A helper "class" to create window data */
 const WindowData = (title, width, height, vSync, eventCallback) => ({title, width, height, vSync, eventCallback});

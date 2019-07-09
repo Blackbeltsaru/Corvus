@@ -12,7 +12,7 @@ var _CorvusLogger = require('../Logger/CorvusLogger');
 
 var _CorvusLogger2 = _interopRequireDefault(_CorvusLogger);
 
-var _WebWindow = require('../../platform/WebWindow');
+var _WebWindow = require('../../src/platform/WebWindow');
 
 var _WebWindow2 = _interopRequireDefault(_WebWindow);
 
