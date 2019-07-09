@@ -2,26 +2,26 @@ import {Event, Events, EventCategories} from './Events';
 
 export class KeyEvent extends Event {
 
-    m_KeyCode;
+    _KeyCode;
     constructor(keyCode) {
         super();
-        this.m_KeyCode = keyCode;
+        this._KeyCode = keyCode;
     }
 
-    getKeyCode() {return this.m_KeyCode;}
+    getKeyCode() {return this._KeyCode;}
     getCategoryFlags() {return EventCategories.KeyboardCategory | EventCategories.InputCategory;}
 }
 
 export class KeyPressedEvent extends KeyEvent {
 
-    m_RepeatCount;
+    _RepeatCount;
     constructor(keyCode, repeatCount) {
         super(keyCode);
-        this.m_RepeatCount = repeatCount;
+        this._RepeatCount = repeatCount;
     }
 
-    getRepeatCount() {return this.m_RepeatCount;}
-    toString() {return `KeyPressed: ${this.m_KeyCode} (${this.m_RepeatCount} repeats)`;}
+    getRepeatCount() {return this._RepeatCount;}
+    toString() {return `KeyPressed: ${this._KeyCode} (${this._RepeatCount} repeats)`;}
     
     static getStaticType() {return Events.KeyPressed;}
     getName() {return 'KeyPressed';}
@@ -33,7 +33,7 @@ export class KeyReleasedEvent extends KeyEvent {
         super(keyCode);
     }
 
-    toString() {return `KeyReleasedEvent: ${this.m_KeyCode}`;}
+    toString() {return `KeyReleasedEvent: ${this._KeyCode}`;}
     
     static getStaticType() {return Events.KeyReleased;}
     getName() {return 'KeyReleased';}
@@ -45,7 +45,7 @@ export class KeyTypedEvent extends KeyEvent {
         super(keyCode);
     }
 
-    toString() {return `KeyTyped: ${this.m_KeyCode}`;}
+    toString() {return `KeyTyped: ${this._KeyCode}`;}
 
     static getStaticType() {return Events.KeyTyped;}
     getName() {return 'KeyTyped';}

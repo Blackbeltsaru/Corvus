@@ -12,9 +12,9 @@ export function BIT(x){return 1 << x};
 
 class Application {
 
-    m_Window = null;
-    m_Running = true;
-    m_LayerStack;
+    _Window = null;
+    _Running = true;
+    _LayerStack;
 
     static s_Instance = null;
 
@@ -27,9 +27,9 @@ class Application {
         CorvusLogger.GetCoreLogger().assert(!Application.s_Instance, "Application already exists");
         Application.s_Instance = this;
 
-        this.m_Window = WebWindow.create(new WindowProps());
-        this.m_Window.setEventCallback(this.onEvent);
-        this.m_LayerStack = new LayerStack();
+        this._Window = WebWindow.create(new WindowProps());
+        this._Window.setEventCallback(this.onEvent);
+        this._LayerStack = new LayerStack();
     }
 
     /**
@@ -41,8 +41,8 @@ class Application {
         
         CorvusLogger.GetCoreLogger().info(`Event fireed: ${event}`)
 
-        for(let it = this.m_LayerStack.end(); it !== this.m_LayerStack.begin(); it--) {
-            this.m_LayerStack.get(it).onEvent(e);
+        for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+            this._LayerStack.get(it).onEvent(e);
             if(e.handled) break;
         }
     }
@@ -54,15 +54,15 @@ class Application {
         //TODO: do application update-y stuff here
 
         
-        for(let it = this.m_LayerStack.begin(); it !== this.m_LayerStack.end(); it++) {
-            this.m_LayerStack.get(it).onUpdate();
+        for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+            this._LayerStack.get(it).onUpdate();
         }
 
-        if(this.m_Running) this.m_Window.onUpdate(this.run);
+        if(this._Running) this._Window.onUpdate(this.run);
     }
 
     /** @returns {Window} the current window of the application */
-    getWindow() {return this.m_Window;}
+    getWindow() {return this._Window;}
     /** @returns {Application} the current instance of the application */
     static get() {return Application.s_Instance;}
 
@@ -75,11 +75,11 @@ class Application {
     }
 
     pushLayer(layer) {
-        this.m_LayerStack.pushLayer(layer);
+        this._LayerStack.pushLayer(layer);
     }
     
     pushOverlay(layer) {
-        this.m_LayerStack.pushOverlay(layer);
+        this._LayerStack.pushOverlay(layer);
     }
 }
 

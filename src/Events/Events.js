@@ -62,17 +62,17 @@ export class Event {
  */
 export class EventDispatcher {
 
-    m_Event;
+    _Event;
     constructor(event) {
-        this.m_Event = event;
+        this._Event = event;
     }
 
     /**
      * Dispatches my event with the given function if it is of given type
      */
     dispatch(type, eventFunc) {
-        if(this.m_Event.getEventType() === type.getStaticType()) {
-            this.m_Event.handled = eventFunc(this.m_Event);
+        if(this._Event.getEventType() === type.getStaticType()) {
+            this._Event.handled = eventFunc(this._Event);
             return true;
         }
         return false;

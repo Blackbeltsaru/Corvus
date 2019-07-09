@@ -3,11 +3,11 @@ import {NotImplementedError} from '../Error/NotImplementedError';
 class Layer {
 
     //TODO: debugName should be removed from release builds
-    m_DebugName;
+    _DebugName;
     constructor(name) {
         super();
         //TODO: debugName should be removed from release builds
-        this.m_DebugName = name;
+        this._DebugName = name;
     }
 
     onAttach() {throw new NotImplementedError();}
@@ -15,7 +15,7 @@ class Layer {
     onUpdate() {throw new NotImplementedError();}
     onEvent(event) {throw new NotImplementedError();}
 
-    getName() {return this.m_DebugName}
+    getName() {return this._DebugName}
 
 
 }

@@ -2,12 +2,12 @@ import LogLevel from './LogLevel';
 
 export default class Logger {
 
-    m_Id;
-    m_Level;
+    _Id;
+    _Level;
 
     constructor(id, level) {
-        this.m_Id = id;
-        this.m_Level = level;
+        this._Id = id;
+        this._Level = level;
 
         this.advancedLog.bind(this);
     }
@@ -18,9 +18,9 @@ export default class Logger {
       }
 
     advancedLog(level, msg, ...args) {
-        if(this.m_Level.value > level.value) return;
+        if(this._Level.value > level.value) return;
         const logTime = new Date().toTimeString().split(' ')[0];
-        console[level.method](`[${logTime}] ${this.m_Id} :: ${msg}`, ...args);
+        console[level.method](`[${logTime}] ${this._Id} :: ${msg}`, ...args);
     };
 
     trace(msg, ...args) {
