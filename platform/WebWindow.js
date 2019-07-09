@@ -14,9 +14,10 @@ class WebWindow extends Window {
     // _Context;
     // _Data;
 
-    static initialized = false;
+    // static initialized = false;
 
     constructor(props) {
+        if(typeof WebWindow.initialized !== 'undefined') WebWindow.initialized = false;
         super();
         this.init(props);
     }
