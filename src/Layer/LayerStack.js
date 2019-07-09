@@ -1,5 +1,3 @@
-"use module"
-
 class LayerStack {
 
     //Class variables

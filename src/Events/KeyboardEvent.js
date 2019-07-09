@@ -1,5 +1,3 @@
-"use module"
-
 import {Event, Events, EventCategories} from './Events';
 
 export class KeyEvent extends Event {

@@ -1,5 +1,3 @@
-"use module"
-
 /**
  * An enum to represent the possible log levels
  */

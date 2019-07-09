@@ -1,5 +1,3 @@
-"use module"
-
 let glContext;
 let canvas;
 let triangles = [

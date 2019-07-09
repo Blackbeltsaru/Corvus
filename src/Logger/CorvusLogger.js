@@ -1,5 +1,3 @@
-"use module"
-
 import Logger from './Logger';
 import LogLevel from './LogLevel';
 

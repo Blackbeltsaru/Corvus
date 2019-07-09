@@ -1,5 +1,3 @@
-"use module"
-
 import LogLevel from './LogLevel';
 
 export default class Logger {

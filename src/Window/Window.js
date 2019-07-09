@@ -1,5 +1,3 @@
-"use module"
-
 import NotImplementedError from '../Error/NotImplementedError';
 
 export class WindowProps {

@@ -1,5 +1,3 @@
-"use module"
-
 import {BIT} from '../Core/Application';
 import NotImplementedError from '../Error/NotImplementedError';
 
@@ -46,7 +44,7 @@ export class Event {
 
     //Class variables 
     // handled = false;
-    
+
     constructor() {
         this.handled = false;
         this.toString = this.toString.bind(this);
