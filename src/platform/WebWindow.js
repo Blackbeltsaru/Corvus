@@ -1,8 +1,9 @@
-import {Window} from '../Window/Window';
-import CorvusLogger from '../Logger/CorvusLogger';
-import NotImplementedError from '../Error/NotImplementedError';
-import {KeyPressedEvent, KeyReleasedEvent} from '../Events/KeyboardEvent';
-import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../Events/MouseEvent';
+import {Window} from '../Corvus/Window/Window';
+import CorvusLogger from '../Corvus/Logger/CorvusLogger';
+import NotImplementedError from '../Corvus/Error/NotImplementedError';
+import {KeyPressedEvent, KeyReleasedEvent} from '../Corvus/Events/KeyboardEvent';
+import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../Corvus/Events/MouseEvent';
+import Input from '../Corvus/Input/Input';
 
 /** A helper "class" to create window data */
 const WindowData = (title, width, height, vSync, eventCallback) => ({title, width, height, vSync, eventCallback});
@@ -54,11 +55,13 @@ class WebWindow extends Window {
         this._Window.addEventListener("keydown", e => {
             e.preventDefault();
             const keyEvent = new KeyPressedEvent(e.keyCode, e.repeat ? 1 : 0); //keydown is only for the initial press TODO: track modifier keys?
+            Input.getKeyContainer().onKeyDown(e.keyCode);
             this._Data.eventCallback(keyEvent)
         }, false);
         this._Window.addEventListener("keyup", e => {
             e.preventDefault();
             const keyEvent = new KeyReleasedEvent(e.keyCode);
+            Input.getKeyContainer().onKeyUp(e.keyCode);
             this._Data.eventCallback(keyEvent);
         }, false);
         this._Window.addEventListener("mousedown", e => {
@@ -67,11 +70,13 @@ class WebWindow extends Window {
              //This ensures that keyboard events get captured properly
             this._Window.focus();
             const mouseEvent = new MousePressedEvent(e.button);
+            Input.getKeyContainer().onMouseDown(e.button);
             this._Data.eventCallback(mouseEvent);
         }, false);
         this._Window.addEventListener("mouseup", e=> {
             e.preventDefault();
             const mouseEvent = new MouseReleasedEvent(e.button);
+            Input.getKeyContainer().onMouseUp(e.button);
             this._Data.eventCallback(mouseEvent);
         }, false);
         this._Window.addEventListener("wheel", e => {
@@ -83,6 +88,7 @@ class WebWindow extends Window {
             e.preventDefault();
             console.log('mousemove', e);
             const mouseEvent = new MouseMovedEvent(e.layerX, e.layerY);
+            Input.getKeyContainer().onMouseMove(e.layerX, e.layerY);
             this._Data.eventCallback(mouseEvent);
         }, false)
 
@@ -109,6 +115,10 @@ class WebWindow extends Window {
 
     setEventCallback(eventCallback) {
         this._Data.eventCallback = eventCallback;
+    }
+
+    getNativeWindow() {
+        return this._Window;
     }
 }
 

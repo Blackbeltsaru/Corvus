@@ -1,5 +1,5 @@
-import Application from './Core/Application';
-import EntryPoint from './EntryPoint';
+import Application from './Corvus/Core/Application';
+import EntryPoint from './Corvus/EntryPoint';
 
 module.exports = {
     Application: Application,
