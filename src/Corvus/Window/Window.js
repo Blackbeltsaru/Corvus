@@ -46,6 +46,10 @@ export class Window {
         throw new NotImplementedError();
     }
 
+    getNativeWindow() {
+        throw new NotImplementedError();
+    }
+
     static create (props = WindowProps()) {
         throw new NotImplementedError();
     }
