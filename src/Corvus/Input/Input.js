@@ -47,7 +47,7 @@ class Input {
         throw new NotImplementedError();
     }
 
-    staitc getMouseYImpl() {
+    static getMouseYImpl() {
         throw new NotImplementedError();
     }
 }
