@@ -36,6 +36,11 @@ class WebWindow extends Window {
         CorvusLogger.GetCoreLogger().info(`Creating window ${props.title} (${props.width}, ${props.height})`);
 
         if(!WebWindow.initialized) {
+            //Initialize the math library glMatrix
+            const glMatrixScript = document.createElement('script');
+            glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js')
+            document.head.appendChild(glMatrixScript);
+
             this._Window = document.getElementById('canvas');
             this._Window.tabIndex = 1;
             this._Context = this._Window.getContext('webgl'); //TODO: abstract this out to support multiple browsers 
