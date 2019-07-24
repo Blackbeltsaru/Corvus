@@ -6,19 +6,23 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _Window2 = require('../Window/Window');
+var _Window2 = require('../Corvus/Window/Window');
 
-var _CorvusLogger = require('../Logger/CorvusLogger');
+var _CorvusLogger = require('../Corvus/Logger/CorvusLogger');
 
 var _CorvusLogger2 = _interopRequireDefault(_CorvusLogger);
 
-var _NotImplementedError = require('../Error/NotImplementedError');
+var _NotImplementedError = require('../Corvus/Error/NotImplementedError');
 
 var _NotImplementedError2 = _interopRequireDefault(_NotImplementedError);
 
-var _KeyboardEvent = require('../Events/KeyboardEvent');
+var _KeyboardEvent = require('../Corvus/Events/KeyboardEvent');
 
-var _MouseEvent = require('../Events/MouseEvent');
+var _MouseEvent = require('../Corvus/Events/MouseEvent');
+
+var _Input = require('../Corvus/Input/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,6 +67,11 @@ var WebWindow = function (_Window) {
             _CorvusLogger2.default.GetCoreLogger().info('Creating window ' + props.title + ' (' + props.width + ', ' + props.height + ')');
 
             if (!WebWindow.initialized) {
+                //Initialize the math library glMatrix
+                var glMatrixScript = document.createElement('script');
+                glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js');
+                document.head.appendChild(glMatrixScript);
+
                 this._Window = document.getElementById('canvas');
                 this._Window.tabIndex = 1;
                 this._Context = this._Window.getContext('webgl'); //TODO: abstract this out to support multiple browsers 
@@ -82,11 +91,13 @@ var WebWindow = function (_Window) {
             this._Window.addEventListener("keydown", function (e) {
                 e.preventDefault();
                 var keyEvent = new _KeyboardEvent.KeyPressedEvent(e.keyCode, e.repeat ? 1 : 0); //keydown is only for the initial press TODO: track modifier keys?
+                _Input2.default.getKeyContainer().onKeyDown(e.keyCode);
                 _this2._Data.eventCallback(keyEvent);
             }, false);
             this._Window.addEventListener("keyup", function (e) {
                 e.preventDefault();
                 var keyEvent = new _KeyboardEvent.KeyReleasedEvent(e.keyCode);
+                _Input2.default.getKeyContainer().onKeyUp(e.keyCode);
                 _this2._Data.eventCallback(keyEvent);
             }, false);
             this._Window.addEventListener("mousedown", function (e) {
@@ -95,11 +106,13 @@ var WebWindow = function (_Window) {
                 //This ensures that keyboard events get captured properly
                 _this2._Window.focus();
                 var mouseEvent = new _MouseEvent.MousePressedEvent(e.button);
+                _Input2.default.getKeyContainer().onMouseDown(e.button);
                 _this2._Data.eventCallback(mouseEvent);
             }, false);
             this._Window.addEventListener("mouseup", function (e) {
                 e.preventDefault();
                 var mouseEvent = new _MouseEvent.MouseReleasedEvent(e.button);
+                _Input2.default.getKeyContainer().onMouseUp(e.button);
                 _this2._Data.eventCallback(mouseEvent);
             }, false);
             this._Window.addEventListener("wheel", function (e) {
@@ -111,6 +124,7 @@ var WebWindow = function (_Window) {
                 e.preventDefault();
                 console.log('mousemove', e);
                 var mouseEvent = new _MouseEvent.MouseMovedEvent(e.layerX, e.layerY);
+                _Input2.default.getKeyContainer().onMouseMove(e.layerX, e.layerY);
                 _this2._Data.eventCallback(mouseEvent);
             }, false);
 
@@ -138,6 +152,11 @@ var WebWindow = function (_Window) {
         key: 'setEventCallback',
         value: function setEventCallback(eventCallback) {
             this._Data.eventCallback = eventCallback;
+        }
+    }, {
+        key: 'getNativeWindow',
+        value: function getNativeWindow() {
+            return this._Window;
         }
     }], [{
         key: 'frameworkErrorCallback',

@@ -3,8 +3,6 @@ import Application from '../Corvus/Core/Application';
 
 class WebInput extends Input {
 
-    static s_Instance = new WebInput();
-
     constructor() {
         super();
     }
@@ -24,4 +22,12 @@ class WebInput extends Input {
     getMouseYImpl() {
         return WebInput.s_Key.getMouseY();
     }
+
+    static createInstance() {
+        if(!WebInput.s_Instance) WebInput.s_Instance = new WebInput();
+    }
 }
+
+WebInput.createInstance();
+
+export default WebInput;
