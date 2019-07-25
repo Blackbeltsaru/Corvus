@@ -34,6 +34,8 @@ var _Input = require('../Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _glMatrix = require('gl-matrix');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -69,6 +71,8 @@ var Application = function () {
     function Application() {
         _classCallCheck(this, Application);
 
+        var mat = _glMatrix.mat2.create();
+        _CorvusLogger2.default.coreLogger.info('mat', mat);
         //TODO: logging should be removed from release builds
         _CorvusLogger2.default.coreLogger.info('Constructing Application');
         _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
@@ -114,8 +118,6 @@ var Application = function () {
             //TODO: do application update-y stuff here
 
             var mousePos = _Input2.default.getMousePosition();
-
-            _CorvusLogger2.default.coreLogger.info('Mouse Position', mousePos);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();

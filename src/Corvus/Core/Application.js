@@ -6,6 +6,7 @@ import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
 import Input from '../Input/Input';
+import {mat2} from 'gl-matrix';
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
@@ -28,6 +29,8 @@ class Application {
      * Create the window and sets the eventCallback for the window
      */
     constructor() {
+        const mat = mat2.create();
+        CorvusLogger.coreLogger.info('mat', mat);
         //TODO: logging should be removed from release builds
         CorvusLogger.coreLogger.info('Constructing Application');
         CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
@@ -42,6 +45,8 @@ class Application {
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
         CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+
+
 
         //Bind functions
     }
@@ -66,8 +71,6 @@ class Application {
         //TODO: do application update-y stuff here
 
         const mousePos = Input.getMousePosition();
-
-        CorvusLogger.coreLogger.info('Mouse Position', mousePos)
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();
