@@ -58,6 +58,4 @@ var WebInput = function (_Input) {
     return WebInput;
 }(_Input3.default);
 
-WebInput.createInstance();
-
 exports.default = WebInput;

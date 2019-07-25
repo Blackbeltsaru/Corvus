@@ -4,6 +4,7 @@ import NotImplementedError from '../Corvus/Error/NotImplementedError';
 import {KeyPressedEvent, KeyReleasedEvent} from '../Corvus/Events/KeyboardEvent';
 import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../Corvus/Events/MouseEvent';
 import Input from '../Corvus/Input/Input';
+import WebInput from './WebInput';
 
 /** A helper "class" to create window data */
 const WindowData = (title, width, height, vSync, eventCallback) => ({title, width, height, vSync, eventCallback});
@@ -40,6 +41,12 @@ class WebWindow extends Window {
             const glMatrixScript = document.createElement('script');
             glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js')
             document.head.appendChild(glMatrixScript);
+
+            //Create the input instance
+            //In other languages this input instance can be created statically at run time
+            //However, I can't seem to get that to work in js
+            //It is safe to assume we are using web input here because we are in a web window
+            WebInput.createInstance();
 
             this._Window = document.getElementById('canvas');
             this._Window.tabIndex = 1;

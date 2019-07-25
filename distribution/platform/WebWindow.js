@@ -24,6 +24,10 @@ var _Input = require('../Corvus/Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _WebInput = require('./WebInput');
+
+var _WebInput2 = _interopRequireDefault(_WebInput);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71,6 +75,12 @@ var WebWindow = function (_Window) {
                 var glMatrixScript = document.createElement('script');
                 glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js');
                 document.head.appendChild(glMatrixScript);
+
+                //Create the input instance
+                //In other languages this input instance can be created statically at run time
+                //However, I can't seem to get that to work in js
+                //It is safe to assume we are using web input here because we are in a web window
+                _WebInput2.default.createInstance();
 
                 this._Window = document.getElementById('canvas');
                 this._Window.tabIndex = 1;

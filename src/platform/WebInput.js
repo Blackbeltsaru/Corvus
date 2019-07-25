@@ -26,6 +26,4 @@ class WebInput extends Input {
     }
 }
 
-WebInput.createInstance();
-
 export default WebInput;
