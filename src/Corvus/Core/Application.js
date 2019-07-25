@@ -5,6 +5,7 @@ import {WindowCloseEvent} from '../Events/ApplicationEvent'
 import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
+import Input from '../Input/Input';
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
@@ -62,6 +63,9 @@ class Application {
     run() {
         //TODO: do application update-y stuff here
 
+        const mousePos = Input.getMousePosition();
+
+        CorvusLogger.coreLogger.info('Mouse Position', mousePos)
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();

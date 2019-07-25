@@ -8,19 +8,15 @@ class WebInput extends Input {
     }
 
     isKeyPressedImpl(keyCode) {
-        return WebInput.s_Key.isDown(keyCode);
+        return Input.s_Key.isDown(keyCode);
     }
 
     isMousePressedImpl(button) {
-        return WebInput.s_Key.isMousePressed(button);
+        return Input.s_Key.isMousePressed(button);
     }
 
-    getMouseXImpl() {
-        return WebInput.s_Key.getMouseX();
-    }
-
-    getMouseYImpl() {
-        return WebInput.s_Key.getMouseY();
+    getMousePositionImpl() {
+        return {x: Input.s_Key.getMouseX(), y: Input.s_Key.getMouseY()}
     }
 
     static createInstance() {

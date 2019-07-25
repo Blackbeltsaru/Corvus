@@ -146,7 +146,7 @@ var WebWindow = function (_Window) {
         key: 'onUpdate',
         value: function onUpdate(callback) {
             //TODO: what do I do here
-            // this._Window.requestAnimationFrame(callback)
+            window.requestAnimationFrame(callback);
         }
     }, {
         key: 'setEventCallback',

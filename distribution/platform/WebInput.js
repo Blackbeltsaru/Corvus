@@ -34,22 +34,17 @@ var WebInput = function (_Input) {
     _createClass(WebInput, [{
         key: 'isKeyPressedImpl',
         value: function isKeyPressedImpl(keyCode) {
-            return WebInput.s_Key.isDown(keyCode);
+            return _Input3.default.s_Key.isDown(keyCode);
         }
     }, {
         key: 'isMousePressedImpl',
         value: function isMousePressedImpl(button) {
-            return WebInput.s_Key.isMousePressed(button);
+            return _Input3.default.s_Key.isMousePressed(button);
         }
     }, {
-        key: 'getMouseXImpl',
-        value: function getMouseXImpl() {
-            return WebInput.s_Key.getMouseX();
-        }
-    }, {
-        key: 'getMouseYImpl',
-        value: function getMouseYImpl() {
-            return WebInput.s_Key.getMouseY();
+        key: 'getMousePositionImpl',
+        value: function getMousePositionImpl() {
+            return { x: _Input3.default.s_Key.getMouseX(), y: _Input3.default.s_Key.getMouseY() };
         }
     }], [{
         key: 'createInstance',

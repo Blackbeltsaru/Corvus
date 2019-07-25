@@ -115,7 +115,7 @@ class WebWindow extends Window {
 
     onUpdate(callback) {
         //TODO: what do I do here
-        // this._Window.requestAnimationFrame(callback)
+        window.requestAnimationFrame(callback)
     }
 
     setEventCallback(eventCallback) {

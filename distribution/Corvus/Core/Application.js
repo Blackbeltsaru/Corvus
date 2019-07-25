@@ -30,6 +30,10 @@ var _LayerStack = require('../Layer/LayerStack');
 
 var _LayerStack2 = _interopRequireDefault(_LayerStack);
 
+var _Input = require('../Input/Input');
+
+var _Input2 = _interopRequireDefault(_Input);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -107,6 +111,9 @@ var Application = function () {
         value: function run() {
             //TODO: do application update-y stuff here
 
+            var mousePos = _Input2.default.getMousePosition();
+
+            _CorvusLogger2.default.coreLogger.info('Mouse Position', mousePos);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();

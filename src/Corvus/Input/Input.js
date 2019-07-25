@@ -35,19 +35,11 @@ class Input {
         throw new NotImplementedError();
     }
 
-    static getMouseX() {
-        return s_Instance.getMouseXImpl();
+    static getMousePosition() {
+        return Input.s_Instance.getMousePositionImpl();
     }
     
-    static getMouseY() {
-        return s_Instance.getMouseYImpl();
-    }
-
-    static getMouseXImpl() {
-        throw new NotImplementedError();
-    }
-
-    static getMouseYImpl() {
+    static getMousePositionImpl() {
         throw new NotImplementedError();
     }
 }

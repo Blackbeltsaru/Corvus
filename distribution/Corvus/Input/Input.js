@@ -57,23 +57,13 @@ var Input = function () {
             throw new _NotImplementedError2.default();
         }
     }, {
-        key: 'getMouseX',
-        value: function getMouseX() {
-            return s_Instance.getMouseXImpl();
+        key: 'getMousePosition',
+        value: function getMousePosition() {
+            return Input.s_Instance.getMousePositionImpl();
         }
     }, {
-        key: 'getMouseY',
-        value: function getMouseY() {
-            return s_Instance.getMouseYImpl();
-        }
-    }, {
-        key: 'getMouseXImpl',
-        value: function getMouseXImpl() {
-            throw new _NotImplementedError2.default();
-        }
-    }, {
-        key: 'getMouseYImpl',
-        value: function getMouseYImpl() {
+        key: 'getMousePositionImpl',
+        value: function getMousePositionImpl() {
             throw new _NotImplementedError2.default();
         }
     }]);
