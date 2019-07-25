@@ -32,13 +32,18 @@ class Application {
         CorvusLogger.coreLogger.info('Constructing Application');
         CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
         Application.s_Instance = this;
+
+        //Bind functions
         this.onEvent = this.onEvent.bind(this);
+        this.run = this.run.bind(this);
 
         this._Running = true;
         this._Window = WebWindow.create(new WindowProps());
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
         CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+
+        //Bind functions
     }
 
     /**
@@ -47,7 +52,7 @@ class Application {
      */
     onEvent(event) {
         let dispatcher = new EventDispatcher(event);
-        
+
         for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
             this._LayerStack.get(it).onEvent(e);
             if(e.handled) break;

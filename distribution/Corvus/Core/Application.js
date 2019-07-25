@@ -73,13 +73,18 @@ var Application = function () {
         _CorvusLogger2.default.coreLogger.info('Constructing Application');
         _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
         Application.s_Instance = this;
+
+        //Bind functions
         this.onEvent = this.onEvent.bind(this);
+        this.run = this.run.bind(this);
 
         this._Running = true;
         this._Window = _WebWindow2.default.create(new _Window.WindowProps());
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new _LayerStack2.default();
         _CorvusLogger2.default.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+
+        //Bind functions
     }
 
     /**
