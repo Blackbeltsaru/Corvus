@@ -1,10 +1,10 @@
 class Key {
 
     constructor() {
-        _keyPressed = {};
-        _mousePressed = {};
-        _mouseX = 0;
-        _mouseY = 0;
+        this._keyPressed = {};
+        this._mousePressed = {};
+        this._mouseX = 0;
+        this._mouseY = 0;
     }
 
     isDOwn(keyCode) {
