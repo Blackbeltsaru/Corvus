@@ -6,7 +6,6 @@ import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
 import Input from '../Input/Input';
-import {mat2} from 'gl-matrix';
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
@@ -29,8 +28,6 @@ class Application {
      * Create the window and sets the eventCallback for the window
      */
     constructor() {
-        const mat = mat2.create();
-        CorvusLogger.coreLogger.info('mat', mat);
         //TODO: logging should be removed from release builds
         CorvusLogger.coreLogger.info('Constructing Application');
         CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
