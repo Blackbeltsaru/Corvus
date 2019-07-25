@@ -38,8 +38,10 @@ class Input {
     static getMousePosition() {
         return Input.s_Instance.getMousePositionImpl();
     }
-    
+
     static getMousePositionImpl() {
         throw new NotImplementedError();
     }
 }
+
+export default Input;
