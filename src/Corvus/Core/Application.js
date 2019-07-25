@@ -48,9 +48,6 @@ class Application {
     onEvent(event) {
         let dispatcher = new EventDispatcher(event);
         
-        CorvusLogger.coreLogger.info(`Event fireed: ${event}`)
-
-        CorvusLogger.coreLogger.info('layerStack', this._LayerStack);
         for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
             this._LayerStack.get(it).onEvent(e);
             if(e.handled) break;

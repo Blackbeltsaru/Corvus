@@ -20,9 +20,7 @@ class WebInput extends Input {
     }
 
     static createInstance() {
-        console.log('creating input instance');
         if(!Input.s_Instance) Input.s_Instance = new WebInput();
-        console.log('input instance', Input.s_Instance);
     }
 }
 

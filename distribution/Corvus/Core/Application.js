@@ -93,9 +93,6 @@ var Application = function () {
         value: function onEvent(event) {
             var dispatcher = new _Events.EventDispatcher(event);
 
-            _CorvusLogger2.default.coreLogger.info('Event fireed: ' + event);
-
-            _CorvusLogger2.default.coreLogger.info('layerStack', this._LayerStack);
             for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
                 this._LayerStack.get(it).onEvent(e);
                 if (e.handled) break;

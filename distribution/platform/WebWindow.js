@@ -132,7 +132,6 @@ var WebWindow = function (_Window) {
             }, false);
             this._Window.addEventListener("mousemove", function (e) {
                 e.preventDefault();
-                console.log('mousemove', e);
                 var mouseEvent = new _MouseEvent.MouseMovedEvent(e.layerX, e.layerY);
                 _Input2.default.getKeyContainer().onMouseMove(e.layerX, e.layerY);
                 _this2._Data.eventCallback(mouseEvent);

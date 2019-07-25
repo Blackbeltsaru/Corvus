@@ -49,9 +49,7 @@ var WebInput = function (_Input) {
     }], [{
         key: 'createInstance',
         value: function createInstance() {
-            console.log('creating input instance');
             if (!_Input3.default.s_Instance) _Input3.default.s_Instance = new WebInput();
-            console.log('input instance', _Input3.default.s_Instance);
         }
     }]);
 

@@ -98,7 +98,6 @@ class WebWindow extends Window {
         }, false);
         this._Window.addEventListener("mousemove", e => {
             e.preventDefault();
-            console.log('mousemove', e);
             const mouseEvent = new MouseMovedEvent(e.layerX, e.layerY);
             Input.getKeyContainer().onMouseMove(e.layerX, e.layerY);
             this._Data.eventCallback(mouseEvent);
