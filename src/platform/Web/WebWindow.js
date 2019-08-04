@@ -1,10 +1,11 @@
-import {Window} from '../Corvus/Window/Window';
-import CorvusLogger from '../Corvus/Logger/CorvusLogger';
-import NotImplementedError from '../Corvus/Error/NotImplementedError';
-import {KeyPressedEvent, KeyReleasedEvent} from '../Corvus/Events/KeyboardEvent';
-import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../Corvus/Events/MouseEvent';
-import Input from '../Corvus/Input/Input';
+import {Window} from '../../Corvus/Window/Window';
+import CorvusLogger from '../../Corvus/Logger/CorvusLogger';
+import NotImplementedError from '../../Corvus/Error/NotImplementedError';
+import {KeyPressedEvent, KeyReleasedEvent} from '../../Corvus/Events/KeyboardEvent';
+import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../../Corvus/Events/MouseEvent';
+import Input from '../../Corvus/Input/Input';
 import WebInput from './WebInput';
+import WebGLContext from '../WebGL/WebGLContext';
 
 /** A helper "class" to create window data */
 const WindowData = (title, width, height, vSync, eventCallback) => ({title, width, height, vSync, eventCallback});
@@ -35,6 +36,7 @@ class WebWindow extends Window {
     init(props) {
         this._Data = new WindowData(props.title, props.width, props.height)
         CorvusLogger.GetCoreLogger().info(`Creating window ${props.title} (${props.width}, ${props.height})`);
+        this._Context = new WebGLContextEvent();
 
         if(!WebWindow.initialized) {
             //Initialize the math library glMatrix
@@ -50,10 +52,7 @@ class WebWindow extends Window {
 
             this._Window = document.getElementById('canvas');
             this._Window.tabIndex = 1;
-            this._Context = this._Window.getContext('webgl'); //TODO: abstract this out to support multiple browsers 
             
-            const success = !!this._Context;
-            CorvusLogger.GetCoreLogger().assert(success, `Could not initialize WebGL`);
 
             WebWindow.initialized = true;
         }
@@ -61,7 +60,13 @@ class WebWindow extends Window {
         this._Window.width = props.width;
         this._Window.height = props.height;
 
-        this._Context.viewport(0, 0, props.width, props.height);
+
+        this._Context.inti();
+        //Do this stuff here
+        //this._Context = this._Window.getContext('webgl'); //TODO: abstract this out to support multiple browsers 
+        // CorvusLogger.GetCoreLogger().assert(success, `Could not initialize WebGL`);
+        // this._Context.viewport(0, 0, props.width, props.height);
+        
 
         //Set event callbacks
         this._Window.addEventListener("keydown", e => {
@@ -121,7 +126,8 @@ class WebWindow extends Window {
 
     onUpdate(callback) {
         //TODO: what do I do here
-        window.requestAnimationFrame(callback)
+        window.requestAnimationFrame(callback);
+        // this._Context.swapBuffers();?
     }
 
     setEventCallback(eventCallback) {
