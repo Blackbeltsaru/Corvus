@@ -61,11 +61,7 @@ class WebWindow extends Window {
         this._Window.height = props.height;
 
 
-        this._Context.inti();
-        //Do this stuff here
-        //this._Context = this._Window.getContext('webgl'); //TODO: abstract this out to support multiple browsers 
-        // CorvusLogger.GetCoreLogger().assert(success, `Could not initialize WebGL`);
-        // this._Context.viewport(0, 0, props.width, props.height);
+        this._Context.intit();
         
 
         //Set event callbacks
