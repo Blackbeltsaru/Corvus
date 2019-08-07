@@ -10,10 +10,6 @@ var _Input2 = require('../../Corvus/Input/Input');
 
 var _Input3 = _interopRequireDefault(_Input2);
 
-var _Application = require('../../Corvus/Core/Application');
-
-var _Application2 = _interopRequireDefault(_Application);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
