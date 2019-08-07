@@ -86,6 +86,7 @@ var WebWindow = function (_Window) {
 
                 this._Window = document.getElementById('canvas');
                 this._Window.tabIndex = 1;
+                this._Context = new _WebGLContext2.default(this._Window);
 
                 WebWindow.initialized = true;
             }

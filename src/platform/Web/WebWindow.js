@@ -52,6 +52,7 @@ class WebWindow extends Window {
 
             this._Window = document.getElementById('canvas');
             this._Window.tabIndex = 1;
+            this._Context = new WebGLContext(this._Window);
             
 
             WebWindow.initialized = true;
