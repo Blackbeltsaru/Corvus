@@ -54,31 +54,27 @@ class Application {
         //=================================================================================
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         let context = this._Window.getContext().getGraphicsContext();
-        // //TODO:(Ryan) read about these methods and understand whats going on
-        // context.enable(context.DEPTH_TEST);
-        // context.clear(context.COLOR_BUFFER_BIT);
-        // context.clear(context.DEPTH_BUFFER_BIT);
-        // context.viewport(0, 0, this._Window.width, this._Window.height);
-
-        // this.vertextBuffer = context.createBuffer();
-        // context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
-
-        // let verticies = [
-        //     -0.5, 0.5, 0,
-        //     -0.5, -0.5, 0,
-        //     0, -0.5, 0
-        // ]
-
-        // context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
-        // context.enableVertexAttribArray(0);
-        // context.vertexAttribPointer(0, 2, context.FLOAT, false, 0, 0);
-
+        //TODO:(Ryan) read about these methods and understand whats going on
         context.clearColor(0.5, 0.5, 0.5, 0.9);
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, canvas.width, canvas.height);
-        CorvusLogger.GetCoreLogger().warn("Finished clearing buffer");
+        context.viewport(0, 0, this._Window.width, this._Window.height);
+
+        this.vertextBuffer = context.createBuffer();
+        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+
+        let verticies = [
+            -0.5, 0.5, 0,
+            -0.5, -0.5, 0,
+            0, -0.5, 0
+        ]
+
+        context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
+        context.enableVertexAttribArray(0);
+        context.vertexAttribPointer(0, 2, context.FLOAT, false, 0, 0);
+        context.drawArrays(context.TRIANGLES, 0, verticies.length);
+        CorvusLogger.GetCoreLogger().warn("Finished Rendering");
 
 
         //=================================================================================
