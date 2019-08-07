@@ -61,19 +61,28 @@ class Application {
         context.clear(context.DEPTH_BUFFER_BIT);
         context.viewport(0, 0, this._Window.width, this._Window.height);
 
+        this.vertextArray = context.createVertextArra();
+        context.bindVertextArray(this.vertextArray);
+
         this.vertextBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
 
         let verticies = [
             -0.5, 0.5, 0,
-            -0.5, -0.5, 0,
-            0, -0.5, 0
+            0.5, -0.5, 0,
+            0, 0.5, 0
         ]
 
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
         context.enableVertexAttribArray(0);
-        context.vertexAttribPointer(0, 2, context.FLOAT, false, 0, 0);
-        context.drawArrays(context.TRIANGLES, 0, verticies.length);
+        context.vertexAttribPointer(0, 3, context.FLOAT, false, 0, 0);
+
+        this.indexBuffer = context.createBuffer();
+        context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+
+        let indices = [0, 1, 2];
+        context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
         CorvusLogger.GetCoreLogger().warn("Finished Rendering");
 
 
@@ -105,7 +114,10 @@ class Application {
 
         //Clear the background color here
         //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-        // this._Window.getContext().getGraphicsContext().clearColor(0.5, 0.5, 0.5, 0.9); 
+        let context = this._Window.getContext().getGraphicsContext();
+        context.clearColor(0.5, 0.5, 0.5, 0.9);
+        context.bindBuffer(this.vertextArray)
+        context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();
