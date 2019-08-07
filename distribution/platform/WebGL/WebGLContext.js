@@ -27,7 +27,7 @@ var WebGLContext = function (_GraphicsContext) {
         var _this = _possibleConstructorReturn(this, (WebGLContext.__proto__ || Object.getPrototypeOf(WebGLContext)).call(this, windowHandle));
 
         _this._windowHandle = windowHandle;
-        _this._context = windwoHandle.getContext('webgl'); //TODO:(Ryan) abstract this out to support multiple browsers
+        _this._context = windowHandle.getContext('webgl'); //TODO:(Ryan) abstract this out to support multiple browsers
         CorvusLogger.GetCoreLogger().assert(!!_this._context, 'Could not initialize WebGL');
         _this._context.viewport(0, 0, windowHandle.width, windowHandle.height);
         return _this;
