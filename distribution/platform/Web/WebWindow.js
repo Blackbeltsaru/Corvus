@@ -93,7 +93,7 @@ var WebWindow = function (_Window) {
             this._Window.width = props.width;
             this._Window.height = props.height;
 
-            this._Context.intit();
+            this._Context.init();
 
             //Set event callbacks
             this._Window.addEventListener("keydown", function (e) {

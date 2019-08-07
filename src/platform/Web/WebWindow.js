@@ -61,7 +61,7 @@ class WebWindow extends Window {
         this._Window.height = props.height;
 
 
-        this._Context.intit();
+        this._Context.init();
         
 
         //Set event callbacks
