@@ -72,10 +72,11 @@ var WebWindow = function (_Window) {
             this._Context = new _WebGLContext2.default();
 
             if (!WebWindow.initialized) {
+                //TODO:(Ryan) currently glmatrix is installed as a dependency of the child - this should be changed
                 //Initialize the math library glMatrix
-                var glMatrixScript = document.createElement('script');
-                glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js');
-                document.head.appendChild(glMatrixScript);
+                // const glMatrixScript = document.createElement('script');
+                // glMatrixScript.setAttribute('src', '../Libraries/gl-matrix-min.js')
+                // document.head.appendChild(glMatrixScript);
 
                 //Create the input instance
                 //In other languages this input instance can be created statically at run time
