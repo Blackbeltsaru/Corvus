@@ -49,6 +49,7 @@ class Application {
 
 
         //Setup webGL buffers
+        //HACK
         //=================================================================================
         //=================================================================================
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
@@ -75,6 +76,7 @@ class Application {
         
         //=================================================================================
         //=================================================================================
+        //END HACK
 
         //Bind functions
     }
@@ -100,7 +102,7 @@ class Application {
 
         //Clear the background color here
         //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-        this._Window.getContext().clearColor(0.5, 0.5, 0.5, 0.9); 
+        this._Window.getContext().getGraphicsContext().clearColor(0.5, 0.5, 0.5, 0.9); 
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();

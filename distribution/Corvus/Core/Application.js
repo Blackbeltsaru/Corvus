@@ -89,6 +89,7 @@ var Application = function () {
         _CorvusLogger2.default.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
 
         //Setup webGL buffers
+        //HACK
         //=================================================================================
         //=================================================================================
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
@@ -110,6 +111,7 @@ var Application = function () {
 
         //=================================================================================
         //=================================================================================
+        //END HACK
 
         //Bind functions
     }
@@ -142,7 +144,7 @@ var Application = function () {
 
             //Clear the background color here
             //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-            this._Window.getContext().clearColor(0.5, 0.5, 0.5, 0.9);
+            this._Window.getContext().getGraphicsContext().clearColor(0.5, 0.5, 0.5, 0.9);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();
