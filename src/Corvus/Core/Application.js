@@ -69,7 +69,7 @@ class Application {
         ]
 
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
-        context.enableVertextAttribArray(0);
+        context.enableVertexAttribArray(0);
         context.vertexAttribPointer(0, 2, context.FLOAT, false, 0, 0);
 
         
