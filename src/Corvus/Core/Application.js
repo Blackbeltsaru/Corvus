@@ -62,7 +62,7 @@ class Application {
         context.viewport(0, 0, this._Window.width, this._Window.height);
 
         this.vertextArray = context.createVertexArray();
-        context.bindVertextArray(this.vertextArray);
+        context.bindVertexArray(this.vertextArray);
 
         this.vertextBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
