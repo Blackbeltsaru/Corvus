@@ -57,7 +57,7 @@ const _programShader = (vertexShader, fragmentShader) => {
 
 const WindowAnimator = () => {    
     canvas = document.getElementById('canvas');
-    glContext = canvas.getContext('webgl');
+    glContext = canvas.getContext('webgl2');
 
     //only do stuff if I have an actual webGl context
     if(glContext === null) {
