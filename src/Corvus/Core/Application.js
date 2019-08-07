@@ -1,5 +1,5 @@
 import CorvusLogger from '../Logger/CorvusLogger';
-import WebWindow from '../../platform/WebWindow';
+import WebWindow from '../../platform/Web/WebWindow';
 import {EventDispatcher} from '../Events/Events';
 import {WindowCloseEvent} from '../Events/ApplicationEvent'
 import NotImplementedError from '../Error/NotImplementedError';
