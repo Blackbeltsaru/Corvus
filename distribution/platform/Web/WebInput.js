@@ -10,7 +10,7 @@ var _Input2 = require('../../Corvus/Input/Input');
 
 var _Input3 = _interopRequireDefault(_Input2);
 
-var _Application = require('../Corvus/Core/Application');
+var _Application = require('../../Corvus/Core/Application');
 
 var _Application2 = _interopRequireDefault(_Application);
 
