@@ -18,6 +18,10 @@ class Application {
     // _Running;
     // _LayerStack;
 
+    //vertextArray
+    //vertexBuffer
+    //indexBuffer
+
     // static s_Instance;
     static getInstance() {
         return Application.s_instance;
@@ -44,6 +48,33 @@ class Application {
         CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
 
 
+        //Setup webGL buffers
+        //=================================================================================
+        //=================================================================================
+        //TODO:(Ryan) this is webGL specific and should be move to a platform file
+        let context = this._Window.getContext();
+        //TODO:(Ryan) read about these methods and understand whats going on
+        context.enable(context.DEPTH_TEST);
+        context.clear(context.COLOR_BUFFER_BIT);
+        context.clear(context.DEPTH_BUFFER_BIT);
+        context.viewport(0, 0, this._Window.width, this._Window.height);
+
+        this.vertextBuffer = context.createBuffer();
+        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+
+        let verticies = [
+            -0.5, 0.5, 0,
+            -0.5, -0.5, 0,
+            0, -0.5, 0
+        ]
+
+        context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
+        context.enableVertextAttribArray(0);
+        context.vertexAttribPointer(0, 2, context.FLOAT, false, 0, 0);
+
+        
+        //=================================================================================
+        //=================================================================================
 
         //Bind functions
     }
@@ -67,11 +98,14 @@ class Application {
     run() {
         //TODO: do application update-y stuff here
 
-        const mousePos = Input.getMousePosition();
+        //Clear the background color here
+        //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
+        this._Window.getContext().clearColor(0.5, 0.5, 0.5, 0.9); 
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();
         }
+        //TODO:(Ryan) Do we need to have a layer render here?
 
         if(this._Running) this._Window.onUpdate(this.run);
     }

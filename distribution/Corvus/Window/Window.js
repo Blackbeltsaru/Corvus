@@ -81,11 +81,15 @@ var Window = exports.Window = function () {
         value: function getNativeWindow() {
             throw new _NotImplementedError2.default();
         }
+    }, {
+        key: "getContext",
+        value: function getContext() {
+            throw new _NotImplementedError2.default();
+        }
     }], [{
         key: "create",
         value: function create() {
             var props = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : WindowProps();
-
             throw new _NotImplementedError2.default();
         }
     }]);

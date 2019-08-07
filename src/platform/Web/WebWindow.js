@@ -1,6 +1,5 @@
 import {Window} from '../../Corvus/Window/Window';
 import CorvusLogger from '../../Corvus/Logger/CorvusLogger';
-import NotImplementedError from '../../Corvus/Error/NotImplementedError';
 import {KeyPressedEvent, KeyReleasedEvent} from '../../Corvus/Events/KeyboardEvent';
 import {MousePressedEvent, MouseReleasedEvent, MouseScrolledEvent, MouseMovedEvent} from '../../Corvus/Events/MouseEvent';
 import Input from '../../Corvus/Input/Input';
@@ -36,7 +35,7 @@ class WebWindow extends Window {
     init(props) {
         this._Data = new WindowData(props.title, props.width, props.height)
         CorvusLogger.GetCoreLogger().info(`Creating window ${props.title} (${props.width}, ${props.height})`);
-        this._Context = new WebGLContextEvent();
+        this._Context = new WebGLContext();
 
         if(!WebWindow.initialized) {
             //Initialize the math library glMatrix
@@ -132,6 +131,10 @@ class WebWindow extends Window {
 
     getNativeWindow() {
         return this._Window;
+    }
+
+    getContext() {
+        return this._Context;
     }
 }
 

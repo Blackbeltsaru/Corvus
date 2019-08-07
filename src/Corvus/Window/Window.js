@@ -23,34 +23,18 @@ export class Window {
 
     }
 
-    onUpdate() {
-        throw new NotImplementedError();
-    }
+    onUpdate() {throw new NotImplementedError();}
 
-    getWidth() {
-        throw new NotImplementedError();
-    }
-
-    getHeight() {
-        throw new NotImplementedError();
-    }
+    getWidth() {throw new NotImplementedError();}
+    getHeight() {throw new NotImplementedError();}
 
     //Window attributes
-    setEventCallback(eventCallback) {
-        throw new NotImplementedError();
-    }
-    setVSync(enabled) {
-        throw new NotImplementedError();
-    }
-    isVSync() {
-        throw new NotImplementedError();
-    }
+    setEventCallback(eventCallback) {throw new NotImplementedError();}
+    setVSync(enabled) {throw new NotImplementedError();}
+    isVSync() {throw new NotImplementedError();}
 
-    getNativeWindow() {
-        throw new NotImplementedError();
-    }
+    getNativeWindow() {throw new NotImplementedError();}
+    getContext() {throw new NotImplementedError();}
 
-    static create (props = WindowProps()) {
-        throw new NotImplementedError();
-    }
+    static create (props = WindowProps()) {throw new NotImplementedError();}
 }
