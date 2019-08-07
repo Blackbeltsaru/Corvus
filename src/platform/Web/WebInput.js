@@ -1,4 +1,4 @@
-import Input from '../Corvus/Input/Input';
+import Input from '../../Corvus/Input/Input';
 import Application from '../Corvus/Core/Application';
 
 class WebInput extends Input {
