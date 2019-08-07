@@ -10,6 +10,10 @@ var _GraphicsContext2 = require('../../Corvus/Renderer/GraphicsContext');
 
 var _GraphicsContext3 = _interopRequireDefault(_GraphicsContext2);
 
+var _CorvusLogger = require('../../Corvus/Logger/CorvusLogger');
+
+var _CorvusLogger2 = _interopRequireDefault(_CorvusLogger);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -28,7 +32,7 @@ var WebGLContext = function (_GraphicsContext) {
 
         _this._windowHandle = windowHandle;
         _this._context = windowHandle.getContext('webgl'); //TODO:(Ryan) abstract this out to support multiple browsers
-        CorvusLogger.GetCoreLogger().assert(!!_this._context, 'Could not initialize WebGL');
+        _CorvusLogger2.default.GetCoreLogger().assert(!!_this._context, 'Could not initialize WebGL');
         _this._context.viewport(0, 0, windowHandle.width, windowHandle.height);
         return _this;
     }

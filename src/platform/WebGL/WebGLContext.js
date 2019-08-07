@@ -1,4 +1,5 @@
 import GraphicsContext from '../../Corvus/Renderer/GraphicsContext';
+import CorvusLogger from '../../Corvus/Logger/CorvusLogger';
 
 class WebGLContext extends GraphicsContext {
 
