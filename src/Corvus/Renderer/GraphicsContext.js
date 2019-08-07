@@ -10,12 +10,10 @@ class GraphicsContext {
     constructor(windowHandle) {
     }
 
-    init() {
-        throw new NotImplementedError();
-    }
-    swapBuffers() {
-        throw new NotImplementedError();
-    }
+    init() {throw new NotImplementedError();}
+    swapBuffers() {throw new NotImplementedError();}
+
+    getGraphicsContext() {throw new NotImplementedError();}
 }
 
 export default GraphicsContext;

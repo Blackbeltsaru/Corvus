@@ -43,6 +43,11 @@ var WebGLContext = function (_GraphicsContext) {
     }, {
         key: 'swapBuffers',
         value: function swapBuffers() {}
+    }, {
+        key: 'getGraphicsContext',
+        value: function getGraphicsContext() {
+            return this._context;
+        }
     }]);
 
     return WebGLContext;

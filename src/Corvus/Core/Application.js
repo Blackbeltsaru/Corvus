@@ -52,7 +52,7 @@ class Application {
         //=================================================================================
         //=================================================================================
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
-        let context = this._Window.getContext();
+        let context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);

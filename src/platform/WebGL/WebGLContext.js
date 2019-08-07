@@ -19,6 +19,10 @@ class WebGLContext extends GraphicsContext {
 
     }
 
+    getGraphicsContext() {
+        return this._context;
+    }
+
 }
 
 export default WebGLContext;

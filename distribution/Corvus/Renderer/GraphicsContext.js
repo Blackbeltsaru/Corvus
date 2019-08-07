@@ -37,6 +37,11 @@ var GraphicsContext = function () {
         value: function swapBuffers() {
             throw new _NotImplementedError2.default();
         }
+    }, {
+        key: "getGraphicsContext",
+        value: function getGraphicsContext() {
+            throw new _NotImplementedError2.default();
+        }
     }]);
 
     return GraphicsContext;
