@@ -69,7 +69,6 @@ var WebWindow = function (_Window) {
 
             this._Data = new WindowData(props.title, props.width, props.height);
             _CorvusLogger2.default.GetCoreLogger().info('Creating window ' + props.title + ' (' + props.width + ', ' + props.height + ')');
-            this._Context = new _WebGLContext2.default();
 
             if (!WebWindow.initialized) {
                 //TODO:(Ryan) currently glmatrix is installed as a dependency of the child - this should be changed

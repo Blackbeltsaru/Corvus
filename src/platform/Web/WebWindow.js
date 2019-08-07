@@ -35,7 +35,6 @@ class WebWindow extends Window {
     init(props) {
         this._Data = new WindowData(props.title, props.width, props.height)
         CorvusLogger.GetCoreLogger().info(`Creating window ${props.title} (${props.width}, ${props.height})`);
-        this._Context = new WebGLContext();
 
         if(!WebWindow.initialized) {
             //TODO:(Ryan) currently glmatrix is installed as a dependency of the child - this should be changed
