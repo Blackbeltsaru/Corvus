@@ -116,7 +116,7 @@ class Application {
         //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
         let context = this._Window.getContext().getGraphicsContext();
         context.clearColor(0.5, 0.5, 0.5, 0.9);
-        context.bindBuffer(this.vertextArray)
+        context.bindVertexArray(this.vertextArray)
         context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
