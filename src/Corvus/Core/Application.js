@@ -174,19 +174,19 @@ class Application {
     }
 }
 
-const _compileShader = (sahderType, shaderCode) => {
-    let shader = glContext.createShader(sahderType);
-    glContext.shaderSource(shader, shaderCode);
-    glContext.compileShader(shader);
+const _compileShader = (context, sahderType, shaderCode) => {
+    let shader = context.createShader(sahderType);
+    context.shaderSource(shader, shaderCode);
+    context.compileShader(shader);
     return shader;
 }
 
-const _programShader = (vertexShader, fragmentShader) => {
-    let shaderProgram = glContext.createProgram();
-    glContext.attachShader(shaderProgram, vertexShader);
-    glContext.attachShader(shaderProgram, fragmentShader);
-    glContext.linkProgram(shaderProgram);
-    glContext.useProgram(shaderProgram);
+const _programShader = (context, vertexShader, fragmentShader) => {
+    let shaderProgram = context.createProgram();
+    context.attachShader(shaderProgram, vertexShader);
+    context.attachShader(shaderProgram, fragmentShader);
+    context.linkProgram(shaderProgram);
+    context.useProgram(shaderProgram);
     return shaderProgram;
 }
 

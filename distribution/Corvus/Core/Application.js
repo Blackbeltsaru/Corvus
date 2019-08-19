@@ -234,19 +234,19 @@ var Application = function () {
     return Application;
 }();
 
-var _compileShader = function _compileShader(sahderType, shaderCode) {
-    var shader = glContext.createShader(sahderType);
-    glContext.shaderSource(shader, shaderCode);
-    glContext.compileShader(shader);
+var _compileShader = function _compileShader(context, sahderType, shaderCode) {
+    var shader = context.createShader(sahderType);
+    context.shaderSource(shader, shaderCode);
+    context.compileShader(shader);
     return shader;
 };
 
-var _programShader = function _programShader(vertexShader, fragmentShader) {
-    var shaderProgram = glContext.createProgram();
-    glContext.attachShader(shaderProgram, vertexShader);
-    glContext.attachShader(shaderProgram, fragmentShader);
-    glContext.linkProgram(shaderProgram);
-    glContext.useProgram(shaderProgram);
+var _programShader = function _programShader(context, vertexShader, fragmentShader) {
+    var shaderProgram = context.createProgram();
+    context.attachShader(shaderProgram, vertexShader);
+    context.attachShader(shaderProgram, fragmentShader);
+    context.linkProgram(shaderProgram);
+    context.useProgram(shaderProgram);
     return shaderProgram;
 };
 
