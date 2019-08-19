@@ -30,7 +30,7 @@ class Shader {
         // }
 
         this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
-        let linkStatus = context.getProgramParameter(this.rendererId, context.LINK_STATUS);
+        let linkStatus = context.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
         // if(!linkStatus) {
         //     glContext.deleteProgram(this.rendererId);
         //     glContext.deleteShader(vertexShader);
