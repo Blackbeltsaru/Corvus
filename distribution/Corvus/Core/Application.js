@@ -101,10 +101,10 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-        glContext.clearColor(0.5, 0.5, 0.5, 0.9);
+        context.clearColor(0.5, 0.5, 0.5, 0.9);
         context.enable(context.DEPTH_TEST);
-        glContext.clear(glContext.COLOR_BUFFER_BIT);
-        glContext.clear(glContext.DEPTH_BUFFER_BIT);
+        context.clear(context.COLOR_BUFFER_BIT);
+        context.clear(context.DEPTH_BUFFER_BIT);
         context.viewport(0, 0, this._Window.width, this._Window.height);
 
         // this.vertextArray = context.createVertexArray();
