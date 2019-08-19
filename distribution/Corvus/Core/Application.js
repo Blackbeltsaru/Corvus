@@ -122,7 +122,7 @@ var Application = function () {
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
 
-        var coords = context.getAttribLocation(this.shader.getShader(), "coords");
+        var coords = context.getAttribLocation(this.shader, "coords");
         context.enableVertexAttribArray(coords);
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
 
