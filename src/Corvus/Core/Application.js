@@ -33,38 +33,38 @@ class Application {
      * Create the window and sets the eventCallback for the window
      */
     constructor() {
-        //TODO: logging should be removed from release builds
-        CorvusLogger.coreLogger.info('Constructing Application');
-        CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
-        Application.s_Instance = this;
+        // //TODO: logging should be removed from release builds
+        // CorvusLogger.coreLogger.info('Constructing Application');
+        // CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
+        // Application.s_Instance = this;
 
-        //Bind functions
-        this.onEvent = this.onEvent.bind(this);
-        this.run = this.run.bind(this);
+        // //Bind functions
+        // this.onEvent = this.onEvent.bind(this);
+        // this.run = this.run.bind(this);
 
-        this._Running = true;
-        this._Window = WebWindow.create(new WindowProps());
-        this._Window.setEventCallback(this.onEvent);
-        this._LayerStack = new LayerStack();
-        CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
-
-
-        //Setup webGL buffers
-        //HACK
-        //=================================================================================
-        //=================================================================================
-        //TODO:(Ryan) this is webGL specific and should be move to a platform file
-        let context = this._Window.getContext().getGraphicsContext();
-        //TODO:(Ryan) read about these methods and understand whats going on
-
-        CorvusLogger.GetCoreLogger().warn("Finished Rendering");
+        // this._Running = true;
+        // this._Window = WebWindow.create(new WindowProps());
+        // this._Window.setEventCallback(this.onEvent);
+        // this._LayerStack = new LayerStack();
+        // CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
 
 
-        //=================================================================================
-        //=================================================================================
-        //END HACK
+        // //Setup webGL buffers
+        // //HACK
+        // //=================================================================================
+        // //=================================================================================
+        // //TODO:(Ryan) this is webGL specific and should be move to a platform file
+        // let context = this._Window.getContext().getGraphicsContext();
+        // //TODO:(Ryan) read about these methods and understand whats going on
 
-        //Bind functions
+        // CorvusLogger.GetCoreLogger().warn("Finished Rendering");
+
+
+        // //=================================================================================
+        // //=================================================================================
+        // //END HACK
+
+        // //Bind functions
     }
 
     /**
@@ -85,9 +85,11 @@ class Application {
      */
     run() {
         //TODO: do application update-y stuff here
-        let context = this._Window.getContext().getGraphicsContext();
+        // let context = this._Window.getContext().getGraphicsContext();
 
         //context.clearColor(0.8, 0.2, 0.3, 0.9);
+        canvas = document.getElementById('canvas');
+        glContext = canvas.getContext('webgl2');
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
@@ -132,10 +134,10 @@ class Application {
         // this.shader.bind()
         context.drawArrays(context.TRIANGLES, 0, verticies.length);
         
-        for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
-            // this._LayerStack.get(it).onUpdate();
-        }
-        //TODO:(Ryan) Do we need to have a layer render here?
+        // for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+        //     this._LayerStack.get(it).onUpdate();
+        // }
+        // //TODO:(Ryan) Do we need to have a layer render here?
 
         // if(this._Running) this._Window.onUpdate(this.run);
     }
