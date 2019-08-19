@@ -64,35 +64,33 @@ class Application {
 
         // this.vertextArray = context.createVertexArray();
         // context.bindVertexArray(this.vertextArray);
+        let verticies = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
         this.vertextBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
-
-        let verticies = [
-            -0.5, 0.5,
-            0.5, -0.5,
-            0, 0.5
-        ]
-
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
         context.bindBuffer(context.ARRAY_BUFFER, null);
+
         let vertexSrc = 
         'attribute vec2 coords;' +
         'void main(void) {' +
         ' gl_Position = vec4(coords, 0.0, 1.0);' + 
         '}';
+        let vertShader = _compileShader(context.VERTEX_SHADER, vertexSrc);
 
         let fragmentSrc = 
         'void main(void) {' +
         ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + 
         '}';
-        this.shader = new Shader(context, vertexSrc, fragmentSrc);
+        let fragShader = _compileShader(context.FRAGMENT_SHADER, fragmentSrc);
+        let shaderProgram = _programShader(vertShader, fragShader);
+
+        // this.shader = new Shader(context, vertexSrc, fragmentSrc);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer)
-
         let coords = context.getAttribLocation(this.shader.getShader(), "coords");
-        context.enableVertexAttribArray(coords);
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+        context.enableVertexAttribArray(coords);
 
         // this.indexBuffer = context.createBuffer();
         // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
@@ -100,7 +98,7 @@ class Application {
         // let indices = [0, 1, 2];
         // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
 
-        this.shader.bind()
+        // this.shader.bind()
         context.drawArrays(context.TRIANGLES, 0, verticies.length);
 
         CorvusLogger.GetCoreLogger().warn("Finished Rendering");
@@ -174,6 +172,22 @@ class Application {
     pushOverlay(layer) {
         this._LayerStack.pushOverlay(layer);
     }
+}
+
+const _compileShader = (sahderType, shaderCode) => {
+    let shader = glContext.createShader(sahderType);
+    glContext.shaderSource(shader, shaderCode);
+    glContext.compileShader(shader);
+    return shader;
+}
+
+const _programShader = (vertexShader, fragmentShader) => {
+    let shaderProgram = glContext.createProgram();
+    glContext.attachShader(shaderProgram, vertexShader);
+    glContext.attachShader(shaderProgram, fragmentShader);
+    glContext.linkProgram(shaderProgram);
+    glContext.useProgram(shaderProgram);
+    return shaderProgram;
 }
 
 export default Application;
