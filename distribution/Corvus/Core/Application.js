@@ -99,43 +99,6 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-        context.clearColor(0.5, 0.5, 0.5, 0.9);
-        context.enable(context.DEPTH_TEST);
-        context.clear(context.COLOR_BUFFER_BIT);
-        context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, this._Window.width, this._Window.height);
-
-        // this.vertextArray = context.createVertexArray();
-        // context.bindVertexArray(this.vertextArray);
-        var verticies = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
-
-        this.vertextBuffer = context.createBuffer();
-        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
-        context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
-        context.bindBuffer(context.ARRAY_BUFFER, null);
-
-        var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
-        var vertShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
-
-        var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-        var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
-        var shaderProgram = _programShader(context, vertShader, fragShader);
-
-        // this.shader = new Shader(context, vertexSrc, fragmentSrc);
-
-        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
-        var coords = context.getAttribLocation(shaderProgram, "coords");
-        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
-        context.enableVertexAttribArray(coords);
-
-        // this.indexBuffer = context.createBuffer();
-        // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-
-        // let indices = [0, 1, 2];
-        // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
-
-        // this.shader.bind()
-        context.drawArrays(context.TRIANGLES, 0, verticies.length);
 
         _CorvusLogger2.default.GetCoreLogger().warn("Finished Rendering");
 
@@ -171,19 +134,45 @@ var Application = function () {
         key: 'run',
         value: function run() {
             //TODO: do application update-y stuff here
+            var context = this._Window.getContext().getGraphicsContext();
 
-            //Clear the background color here
-            //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-            // let context = this._Window.getContext().getGraphicsContext();
+            context.clearColor(0.5, 0.5, 0.5, 0.9);
+            context.enable(context.DEPTH_TEST);
+            context.clear(context.COLOR_BUFFER_BIT);
+            context.clear(context.DEPTH_BUFFER_BIT);
+            context.viewport(0, 0, this._Window.width, this._Window.height);
 
-            // context.clearColor(0.5, 0.5, 0.5, 0.9);
-            // context.clear(context.COLOR_BUFFER_BIT);
-            // context.clear(context.DEPTH_BUFFER_BIT);
+            // this.vertextArray = context.createVertexArray();
+            // context.bindVertexArray(this.vertextArray);
+            var verticies = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
-            // this.shader.bind();
+            this.vertextBuffer = context.createBuffer();
+            context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+            context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
+            context.bindBuffer(context.ARRAY_BUFFER, null);
 
-            // context.bindVertexArray(this.vertextArray)
-            // context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
+            var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
+            var vertShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
+
+            var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+            var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
+            var shaderProgram = _programShader(context, vertShader, fragShader);
+
+            // this.shader = new Shader(context, vertexSrc, fragmentSrc);
+
+            context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+            var coords = context.getAttribLocation(shaderProgram, "coords");
+            context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+            context.enableVertexAttribArray(coords);
+
+            // this.indexBuffer = context.createBuffer();
+            // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+
+            // let indices = [0, 1, 2];
+            // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
+            // this.shader.bind()
+            context.drawArrays(context.TRIANGLES, 0, verticies.length);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();

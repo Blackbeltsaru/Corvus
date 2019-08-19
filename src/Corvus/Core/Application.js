@@ -56,6 +56,37 @@ class Application {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         let context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
+
+        CorvusLogger.GetCoreLogger().warn("Finished Rendering");
+
+
+        //=================================================================================
+        //=================================================================================
+        //END HACK
+
+        //Bind functions
+    }
+
+    /**
+     * The event callback used by the window
+     * @param {Event} event The event that will be propagated 
+     */
+    onEvent(event) {
+        let dispatcher = new EventDispatcher(event);
+
+        for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+            this._LayerStack.get(it).onEvent(e);
+            if(e.handled) break;
+        }
+    }
+
+    /**
+     * The main run loop
+     */
+    run() {
+        //TODO: do application update-y stuff here
+        let context = this._Window.getContext().getGraphicsContext();
+
         context.clearColor(0.5, 0.5, 0.5, 0.9);
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
@@ -100,48 +131,6 @@ class Application {
 
         // this.shader.bind()
         context.drawArrays(context.TRIANGLES, 0, verticies.length);
-
-        CorvusLogger.GetCoreLogger().warn("Finished Rendering");
-
-
-        //=================================================================================
-        //=================================================================================
-        //END HACK
-
-        //Bind functions
-    }
-
-    /**
-     * The event callback used by the window
-     * @param {Event} event The event that will be propagated 
-     */
-    onEvent(event) {
-        let dispatcher = new EventDispatcher(event);
-
-        for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
-            this._LayerStack.get(it).onEvent(e);
-            if(e.handled) break;
-        }
-    }
-
-    /**
-     * The main run loop
-     */
-    run() {
-        //TODO: do application update-y stuff here
-
-        //Clear the background color here
-        //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-        // let context = this._Window.getContext().getGraphicsContext();
-        
-        // context.clearColor(0.5, 0.5, 0.5, 0.9);
-        // context.clear(context.COLOR_BUFFER_BIT);
-        // context.clear(context.DEPTH_BUFFER_BIT);
-
-        // this.shader.bind();
-
-        // context.bindVertexArray(this.vertextArray)
-        // context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();
