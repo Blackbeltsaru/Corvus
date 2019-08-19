@@ -16,7 +16,7 @@ var _MosueButtonCodes = require('./Corvus/Core/MosueButtonCodes');
 
 var _MosueButtonCodes2 = _interopRequireDefault(_MosueButtonCodes);
 
-var _WindowContext = require('../test/renderer/WindowContext');
+var _WindowContext = require('./test/renderer/WindowContext');
 
 var _WindowContext2 = _interopRequireDefault(_WindowContext);
 
