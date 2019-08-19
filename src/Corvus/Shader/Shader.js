@@ -29,26 +29,26 @@ class Shader {
             return;
         }
 
-        this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
-        let linkStatus = context.getProgramParameter(this.rendererId, context.LINK_STATUS);
+        this.shader = this._programShader(glContext, vertexShader, fragmentShader);
+        let linkStatus = context.getProgramParameter(this.shader, context.LINK_STATUS);
         if(!linkStatus) {
-            glContext.deleteProgram(this.rendererId);
+            glContext.deleteProgram(this.shader);
             glContext.deleteShader(vertexShader);
             glContext.deleteShader(fragmentShader);
 
-            let message = context.getProgramInfoLog(this.rendererId);
+            let message = context.getProgramInfoLog(this.shader);
             CorvusLogger.GetCoreLogger().error("Shader link failure:");
             CorvusLogger.GetCoreLogger().error(message);
 
             return;
         }
 
-        // glContext.detatchShader(this.rendererId, vertexShader);
-        // glContext.detatchShader(this.rendererId, fragmentShader);
+        // glContext.detatchShader(this.shader, vertexShader);
+        // glContext.detatchShader(this.shader, fragmentShader);
     }
 
     bind() {
-        this.glContext.useProgram(this.rendererId);
+        this.glContext.useProgram(this.shader);
     }
 
     unbind() {
@@ -71,7 +71,7 @@ class Shader {
     }
 
     getShader() {
-        return this.rendererId
+        return this.shader
     }
 }
 
