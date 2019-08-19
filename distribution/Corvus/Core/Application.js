@@ -34,6 +34,12 @@ var _Input = require('../Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
+var _Shader = require('../Shader/Shader');
+
+var _Shader2 = _interopRequireDefault(_Shader);
+
+var _glMatrix = require('gl-matrix');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -95,10 +101,7 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-        context.clearColor(0.5, 0.5, 0.5, 0.9);
         context.enable(context.DEPTH_TEST);
-        context.clear(context.COLOR_BUFFER_BIT);
-        context.clear(context.DEPTH_BUFFER_BIT);
         context.viewport(0, 0, this._Window.width, this._Window.height);
 
         this.vertextArray = context.createVertexArray();
@@ -118,6 +121,11 @@ var Application = function () {
 
         var indices = [0, 1, 2];
         context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
+        var vertexSrc = "attribute vec3 coords;" + "void main(void) {" + "    gl_Position =vec4(coords 1.0);" + "}";
+
+        var fragmentSrc = "void main(void) {" + "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" + "}";
+        this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
 
         _CorvusLogger2.default.GetCoreLogger().warn("Finished Rendering");
 
@@ -157,7 +165,13 @@ var Application = function () {
             //Clear the background color here
             //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
             var context = this._Window.getContext().getGraphicsContext();
+
             context.clearColor(0.5, 0.5, 0.5, 0.9);
+            context.clear(context.COLOR_BUFFER_BIT);
+            context.clear(context.DEPTH_BUFFER_BIT);
+
+            this.shader.bind();
+
             context.bindVertexArray(this.vertextArray);
             context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0);
 
