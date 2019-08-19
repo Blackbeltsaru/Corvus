@@ -124,7 +124,7 @@ var Application = function () {
         // this.shader = new Shader(context, vertexSrc, fragmentSrc);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
-        var coords = context.getAttribLocation(this.shader.getShader(), "coords");
+        var coords = context.getAttribLocation(shaderProgram, "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
