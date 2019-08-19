@@ -44,7 +44,7 @@ var Shader = function () {
         // }
 
         this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
-        var linkStatus = context.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
+        var linkStatus = glContext.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
         // if(!linkStatus) {
         //     glContext.deleteProgram(this.rendererId);
         //     glContext.deleteShader(vertexShader);
