@@ -1,63 +1,78 @@
 import CorvusLogger from "../Logger/CorvusLogger";
 
-function createShader(glContext, vertexSrc, fragmentSrc) {
+class Shader {
 
-    let vertexShader = _compileShader(glContext, glContext.VERTEX_SHADER, vertexSrc)
-    let message = glContext.getShaderInfoLog(vertexShader);
-    if (message.length > 0) {
-        glContext.deleteShader(vertexShader);
 
-        CorvusLogger.GetCoreLogger().error("Vertex Shader compilation failure:");
-        CorvusLogger.GetCoreLogger().error(message);
+    constructor(glContext, vertexSrc, fragmentSrc) {
+        this.glContext = glContext;
 
-        return;
+        let vertexShader = this._compileShader(glContext, glContext.VERTEX_SHADER, vertexSrc)
+        let message = glContext.getShaderInfoLog(vertexShader);
+        if(message.length > 0) {
+            glContext.deleteShader(vertexShader);
+
+            CorvusLogger.GetCoreLogger().error("Vertex Shader compilation failure:");
+            CorvusLogger.GetCoreLogger().error(message);
+
+            return;
+        }
+
+        let fragmentShader = this._compileShader(glContext, glContext.FRAGMENT_SHADER, fragmentSrc);
+        message = glContext.getShaderInfoLog(fragmentShader);
+        if(message.length > 0) {
+            glContext.deleteShader(vertexShader);
+            glContext.deleteShader(fragmentShader);
+
+            CorvusLogger.GetCoreLogger().error("Fragment Shader compilation failure:");
+            CorvusLogger.GetCoreLogger().error(message);
+
+            return;
+        }
+
+        this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
+        let linkStatus = context.getProgramParameter(this.rendererId, context.LINK_STATUS);
+        if(!linkStatus) {
+            glContext.deleteProgram(this.rendererId);
+            glContext.deleteShader(vertexShader);
+            glContext.deleteShader(fragmentShader);
+
+            let message = context.getProgramInfoLog(this.rendererId);
+            CorvusLogger.GetCoreLogger().error("Shader link failure:");
+            CorvusLogger.GetCoreLogger().error(message);
+
+            return;
+        }
+
+        glContext.detatchShader(this.rendererId, vertexShader);
+        glContext.detatchShader(this.rendererId, fragmentShader);
     }
 
-    let fragmentShader = _compileShader(glContext, glContext.FRAGMENT_SHADER, fragmentSrc);
-    message = glContext.getShaderInfoLog(fragmentShader);
-    if (message.length > 0) {
-        glContext.deleteShader(vertexShader);
-        glContext.deleteShader(fragmentShader);
-
-        CorvusLogger.GetCoreLogger().error("Fragment Shader compilation failure:");
-        CorvusLogger.GetCoreLogger().error(message);
-
-        return;
+    bind() {
+        this.glContext.useProgram(this.rendererId);
     }
 
-    let shader = _programShader(glContext, vertexShader, fragmentShader);
-    let linkStatus = context.getProgramParameter(shader, context.LINK_STATUS);
-    if (!linkStatus) {
-        glContext.deleteProgram(shader);
-        glContext.deleteShader(vertexShader);
-        glContext.deleteShader(fragmentShader);
-
-        let message = context.getProgramInfoLog(shader);
-        CorvusLogger.GetCoreLogger().error("Shader link failure:");
-        CorvusLogger.GetCoreLogger().error(message);
-
-        return;
+    unbind() {
+        this.glContext.useProgram(0);
     }
 
-    glContext.detatchShader(shader, vertexShader);
-    glContext.detatchShader(shader, fragmentShader);
+    _compileShader(context, shaderType, src) {
+        let shader = context.createShader(shaderType);
+        context.shaderSource(shader, src);
+        context.compileShader(shader);
+        return shader;
+    }
 
-    return shader;
+    _programShader(context, vertexShader, fragmentShader) {
+        let shaderProgram = context.createProgram();
+        context.attachShader(shaderProgram, vertexShader);
+        context.attachShader(shaderProgram, fragmentShader);
+        context.linkProgram(shaderProgram);
+        return shaderProgram;
+    }
+
+    getShader() {
+        return this.rendererId
+    }
 }
 
-function _compileShader(context, shaderType, src) {
-    let shader = context.createShader(shaderType);
-    context.shaderSource(shader, src);
-    context.compileShader(shader);
-    return shader;
-}
-
-function _programShader(context, vertexShader, fragmentShader) {
-    let shaderProgram = context.createProgram();
-    context.attachShader(shaderProgram, vertexShader);
-    context.attachShader(shaderProgram, fragmentShader);
-    context.linkProgram(shaderProgram);
-    return shaderProgram;
-}
-
-export default createShader;
+export default Shader;
