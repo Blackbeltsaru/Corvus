@@ -133,11 +133,11 @@ class Application {
         context.drawArrays(context.TRIANGLES, 0, verticies.length);
         
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
-            this._LayerStack.get(it).onUpdate();
+            // this._LayerStack.get(it).onUpdate();
         }
         //TODO:(Ryan) Do we need to have a layer render here?
 
-        if(this._Running) this._Window.onUpdate(this.run);
+        // if(this._Running) this._Window.onUpdate(this.run);
     }
 
     /** @returns {Window} the current window of the application */
