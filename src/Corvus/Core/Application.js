@@ -91,7 +91,7 @@ class Application {
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer)
 
-        let coords = context.getAttribLocation(this.shader, "coords");
+        let coords = context.getAttribLocation(this.shader.rendererId, "coords");
         context.enableVertexAttribArray(coords);
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
 
