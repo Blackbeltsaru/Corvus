@@ -136,7 +136,7 @@ var Application = function () {
             //TODO: do application update-y stuff here
             var context = this._Window.getContext().getGraphicsContext();
 
-            context.clearColor(0.8, 0.2, 0.3, 0.9);
+            //context.clearColor(0.8, 0.2, 0.3, 0.9);
             context.enable(context.DEPTH_TEST);
             context.clear(context.COLOR_BUFFER_BIT);
             context.clear(context.DEPTH_BUFFER_BIT);
