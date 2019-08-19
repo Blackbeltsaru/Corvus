@@ -38,8 +38,6 @@ var _Shader = require('../Shader/Shader');
 
 var _Shader2 = _interopRequireDefault(_Shader);
 
-var _glMatrix = require('gl-matrix');
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -120,7 +118,7 @@ var Application = function () {
         var vertexSrc = "attribute vec3 coords;" + "void main(void) {" + "    gl_Position =vec4(coords 1.0);" + "}";
 
         var fragmentSrc = "void main(void) {" + "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" + "}";
-        this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+        this.shader = (0, _Shader2.default)(context, vertexSrc, fragmentSrc);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
 

@@ -6,8 +6,7 @@ import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
 import Input from '../Input/Input';
-import Shader from '../Shader/Shader'
-import { vec4 } from 'gl-matrix';
+import createShader from '../Shader/Shader'
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
@@ -87,7 +86,7 @@ class Application {
             "void main(void) {" +
             "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" +
             "}";
-        this.shader = new Shader(context, vertexSrc, fragmentSrc);
+        this.shader = createShader(context, vertexSrc, fragmentSrc);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer)
 
