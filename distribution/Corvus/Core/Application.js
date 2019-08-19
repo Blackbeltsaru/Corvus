@@ -115,11 +115,11 @@ var Application = function () {
         context.bindBuffer(context.ARRAY_BUFFER, null);
 
         var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
-        var vertShader = _compileShader(context.VERTEX_SHADER, vertexSrc);
+        var vertShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
 
         var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-        var fragShader = _compileShader(context.FRAGMENT_SHADER, fragmentSrc);
-        var shaderProgram = _programShader(vertShader, fragShader);
+        var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
+        var shaderProgram = _programShader(context, vertShader, fragShader);
 
         // this.shader = new Shader(context, vertexSrc, fragmentSrc);
 

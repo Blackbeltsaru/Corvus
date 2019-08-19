@@ -76,14 +76,14 @@ class Application {
         'void main(void) {' +
         ' gl_Position = vec4(coords, 0.0, 1.0);' + 
         '}';
-        let vertShader = _compileShader(context.VERTEX_SHADER, vertexSrc);
+        let vertShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
 
         let fragmentSrc = 
         'void main(void) {' +
         ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + 
         '}';
-        let fragShader = _compileShader(context.FRAGMENT_SHADER, fragmentSrc);
-        let shaderProgram = _programShader(vertShader, fragShader);
+        let fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
+        let shaderProgram = _programShader(context, vertShader, fragShader);
 
         // this.shader = new Shader(context, vertexSrc, fragmentSrc);
 
