@@ -93,7 +93,7 @@ class Application {
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, this._Window.width, this._Window.height);
+        context.viewport(0, 0, 1280, 720);
 
         // this.vertextArray = context.createVertexArray();
         // context.bindVertexArray(this.vertextArray);
