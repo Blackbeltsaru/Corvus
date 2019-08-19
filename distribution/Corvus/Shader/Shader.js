@@ -22,40 +22,40 @@ var Shader = function () {
 
         var vertexShader = this._compileShader(glContext, glContext.VERTEX_SHADER, vertexSrc);
         var message = glContext.getShaderInfoLog(vertexShader);
-        if (message.length > 0) {
-            glContext.deleteShader(vertexShader);
+        // if(message.length > 0) {
+        //     glContext.deleteShader(vertexShader);
 
-            _CorvusLogger2.default.GetCoreLogger().error("Vertex Shader compilation failure:");
-            _CorvusLogger2.default.GetCoreLogger().error(message);
+        //     CorvusLogger.GetCoreLogger().error("Vertex Shader compilation failure:");
+        //     CorvusLogger.GetCoreLogger().error(message);
 
-            return;
-        }
+        //     return;
+        // }
 
         var fragmentShader = this._compileShader(glContext, glContext.FRAGMENT_SHADER, fragmentSrc);
         message = glContext.getShaderInfoLog(fragmentShader);
-        if (message.length > 0) {
-            glContext.deleteShader(vertexShader);
-            glContext.deleteShader(fragmentShader);
+        // if(message.length > 0) {
+        //     glContext.deleteShader(vertexShader);
+        //     glContext.deleteShader(fragmentShader);
 
-            _CorvusLogger2.default.GetCoreLogger().error("Fragment Shader compilation failure:");
-            _CorvusLogger2.default.GetCoreLogger().error(message);
+        //     CorvusLogger.GetCoreLogger().error("Fragment Shader compilation failure:");
+        //     CorvusLogger.GetCoreLogger().error(message);
 
-            return;
-        }
+        //     return;
+        // }
 
         this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
         var linkStatus = context.getProgramParameter(this.rendererId, context.LINK_STATUS);
-        if (!linkStatus) {
-            glContext.deleteProgram(this.rendererId);
-            glContext.deleteShader(vertexShader);
-            glContext.deleteShader(fragmentShader);
+        // if(!linkStatus) {
+        //     glContext.deleteProgram(this.rendererId);
+        //     glContext.deleteShader(vertexShader);
+        //     glContext.deleteShader(fragmentShader);
 
-            var _message = context.getProgramInfoLog(this.rendererId);
-            _CorvusLogger2.default.GetCoreLogger().error("Shader link failure:");
-            _CorvusLogger2.default.GetCoreLogger().error(_message);
+        //     let message = context.getProgramInfoLog(this.rendererId);
+        //     CorvusLogger.GetCoreLogger().error("Shader link failure:");
+        //     CorvusLogger.GetCoreLogger().error(message);
 
-            return;
-        }
+        //     return;
+        // }
 
         glContext.detatchShader(this.rendererId, vertexShader);
         glContext.detatchShader(this.rendererId, fragmentShader);

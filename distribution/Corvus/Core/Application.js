@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-    value: true
+        value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45,191 +45,191 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
 function BIT(x) {
-    return 1 << x;
+        return 1 << x;
 };
 
 var Application = function () {
-    _createClass(Application, null, [{
-        key: 'getInstance',
+        _createClass(Application, null, [{
+                key: 'getInstance',
 
 
-        //Class variables 
-        // _Window;
-        // _Running;
-        // _LayerStack;
+                //Class variables 
+                // _Window;
+                // _Running;
+                // _LayerStack;
 
-        //vertextArray
-        //vertexBuffer
-        //indexBuffer
+                //vertextArray
+                //vertexBuffer
+                //indexBuffer
 
-        // static s_Instance;
-        value: function getInstance() {
-            return Application.s_instance;
+                // static s_Instance;
+                value: function getInstance() {
+                        return Application.s_instance;
+                }
+
+                /**
+                 * This initialized the application.
+                 * Create the window and sets the eventCallback for the window
+                 */
+
+        }]);
+
+        function Application() {
+                _classCallCheck(this, Application);
+
+                //TODO: logging should be removed from release builds
+                _CorvusLogger2.default.coreLogger.info('Constructing Application');
+                _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
+                Application.s_Instance = this;
+
+                //Bind functions
+                this.onEvent = this.onEvent.bind(this);
+                this.run = this.run.bind(this);
+
+                this._Running = true;
+                this._Window = _WebWindow2.default.create(new _Window.WindowProps());
+                this._Window.setEventCallback(this.onEvent);
+                this._LayerStack = new _LayerStack2.default();
+                _CorvusLogger2.default.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+
+                //Setup webGL buffers
+                //HACK
+                //=================================================================================
+                //=================================================================================
+                //TODO:(Ryan) this is webGL specific and should be move to a platform file
+                var context = this._Window.getContext().getGraphicsContext();
+                //TODO:(Ryan) read about these methods and understand whats going on
+                context.clearColor(0.5, 0.5, 0.5, 0.9);
+                context.enable(context.DEPTH_TEST);
+                context.clear(context.COLOR_BUFFER_BIT);
+                context.clear(context.DEPTH_BUFFER_BIT);
+                context.viewport(0, 0, this._Window.width, this._Window.height);
+
+                // this.vertextArray = context.createVertexArray();
+                // context.bindVertexArray(this.vertextArray);
+
+                this.vertextBuffer = context.createBuffer();
+                context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+
+                var verticies = [-0.5, 0.5, 0.5, -0.5, 0, 0.5];
+
+                context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
+                context.bindBuffer(context.ARRAY_BUFFER, null);
+                var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
+
+                var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+                this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+
+                context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+
+                var coords = context.getAttribLocation(this.shader.getShader(), "coords");
+                context.enableVertexAttribArray(coords);
+                context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+
+                // this.indexBuffer = context.createBuffer();
+                // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+
+                // let indices = [0, 1, 2];
+                // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
+                this.shader.bind();
+                context.drawArrays(context.TRIANGLES, 0, verticies.length);
+
+                _CorvusLogger2.default.GetCoreLogger().warn("Finished Rendering");
+
+                //=================================================================================
+                //=================================================================================
+                //END HACK
+
+                //Bind functions
         }
 
         /**
-         * This initialized the application.
-         * Create the window and sets the eventCallback for the window
+         * The event callback used by the window
+         * @param {Event} event The event that will be propagated 
          */
 
-    }]);
 
-    function Application() {
-        _classCallCheck(this, Application);
+        _createClass(Application, [{
+                key: 'onEvent',
+                value: function onEvent(event) {
+                        var dispatcher = new _Events.EventDispatcher(event);
 
-        //TODO: logging should be removed from release builds
-        _CorvusLogger2.default.coreLogger.info('Constructing Application');
-        _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
-        Application.s_Instance = this;
+                        for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+                                this._LayerStack.get(it).onEvent(e);
+                                if (e.handled) break;
+                        }
+                }
 
-        //Bind functions
-        this.onEvent = this.onEvent.bind(this);
-        this.run = this.run.bind(this);
+                /**
+                 * The main run loop
+                 */
 
-        this._Running = true;
-        this._Window = _WebWindow2.default.create(new _Window.WindowProps());
-        this._Window.setEventCallback(this.onEvent);
-        this._LayerStack = new _LayerStack2.default();
-        _CorvusLogger2.default.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+        }, {
+                key: 'run',
+                value: function run() {
+                        //TODO: do application update-y stuff here
 
-        //Setup webGL buffers
-        //HACK
-        //=================================================================================
-        //=================================================================================
-        //TODO:(Ryan) this is webGL specific and should be move to a platform file
-        var context = this._Window.getContext().getGraphicsContext();
-        //TODO:(Ryan) read about these methods and understand whats going on
-        context.clearColor(0.5, 0.5, 0.5, 0.9);
-        context.enable(context.DEPTH_TEST);
-        context.clear(context.COLOR_BUFFER_BIT);
-        context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, this._Window.width, this._Window.height);
+                        //Clear the background color here
+                        //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
+                        // let context = this._Window.getContext().getGraphicsContext();
 
-        // this.vertextArray = context.createVertexArray();
-        // context.bindVertexArray(this.vertextArray);
+                        // context.clearColor(0.5, 0.5, 0.5, 0.9);
+                        // context.clear(context.COLOR_BUFFER_BIT);
+                        // context.clear(context.DEPTH_BUFFER_BIT);
 
-        this.vertextBuffer = context.createBuffer();
-        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+                        // this.shader.bind();
 
-        var verticies = [-0.5, 0.5, 0.5, -0.5, 0, 0.5];
+                        // context.bindVertexArray(this.vertextArray)
+                        // context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
 
-        context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
-        context.bindBuffer(context.ARRAY_BUFFER, null);
-        var vertexSrc = "attribute vec3 coords;" + "void main(void) {" + "    gl_Position =vec4(coords 1.0);" + "}";
+                        for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+                                this._LayerStack.get(it).onUpdate();
+                        }
+                        //TODO:(Ryan) Do we need to have a layer render here?
 
-        var fragmentSrc = "void main(void) {" + "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" + "}";
-        this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+                        if (this._Running) this._Window.onUpdate(this.run);
+                }
 
-        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+                /** @returns {Window} the current window of the application */
 
-        var coords = context.getAttribLocation(this.shader.getShader(), "coords");
-        context.enableVertexAttribArray(coords);
-        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+        }, {
+                key: 'getWindow',
+                value: function getWindow() {
+                        return this._Window;
+                }
+                /** @returns {Application} the current instance of the application */
 
-        // this.indexBuffer = context.createBuffer();
-        // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+        }, {
+                key: 'pushLayer',
+                value: function pushLayer(layer) {
+                        this._LayerStack.pushLayer(layer);
+                        layer.onAttach();
+                }
+        }, {
+                key: 'pushOverlay',
+                value: function pushOverlay(layer) {
+                        this._LayerStack.pushOverlay(layer);
+                }
+        }], [{
+                key: 'get',
+                value: function get() {
+                        return Application.getInstance();
+                }
 
-        // let indices = [0, 1, 2];
-        // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+                /**
+                 * A static method to create the application
+                 * This should be implemented by the client
+                 */
 
-        this.shader.bind();
-        context.drawArrays(context.TRIANGLES, 0, verticies.length);
+        }, {
+                key: 'createApplication',
+                value: function createApplication() {
+                        throw new _NotImplementedError2.default();
+                }
+        }]);
 
-        _CorvusLogger2.default.GetCoreLogger().warn("Finished Rendering");
-
-        //=================================================================================
-        //=================================================================================
-        //END HACK
-
-        //Bind functions
-    }
-
-    /**
-     * The event callback used by the window
-     * @param {Event} event The event that will be propagated 
-     */
-
-
-    _createClass(Application, [{
-        key: 'onEvent',
-        value: function onEvent(event) {
-            var dispatcher = new _Events.EventDispatcher(event);
-
-            for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
-                this._LayerStack.get(it).onEvent(e);
-                if (e.handled) break;
-            }
-        }
-
-        /**
-         * The main run loop
-         */
-
-    }, {
-        key: 'run',
-        value: function run() {
-            //TODO: do application update-y stuff here
-
-            //Clear the background color here
-            //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-            // let context = this._Window.getContext().getGraphicsContext();
-
-            // context.clearColor(0.5, 0.5, 0.5, 0.9);
-            // context.clear(context.COLOR_BUFFER_BIT);
-            // context.clear(context.DEPTH_BUFFER_BIT);
-
-            // this.shader.bind();
-
-            // context.bindVertexArray(this.vertextArray)
-            // context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
-
-            for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
-                this._LayerStack.get(it).onUpdate();
-            }
-            //TODO:(Ryan) Do we need to have a layer render here?
-
-            if (this._Running) this._Window.onUpdate(this.run);
-        }
-
-        /** @returns {Window} the current window of the application */
-
-    }, {
-        key: 'getWindow',
-        value: function getWindow() {
-            return this._Window;
-        }
-        /** @returns {Application} the current instance of the application */
-
-    }, {
-        key: 'pushLayer',
-        value: function pushLayer(layer) {
-            this._LayerStack.pushLayer(layer);
-            layer.onAttach();
-        }
-    }, {
-        key: 'pushOverlay',
-        value: function pushOverlay(layer) {
-            this._LayerStack.pushOverlay(layer);
-        }
-    }], [{
-        key: 'get',
-        value: function get() {
-            return Application.getInstance();
-        }
-
-        /**
-         * A static method to create the application
-         * This should be implemented by the client
-         */
-
-    }, {
-        key: 'createApplication',
-        value: function createApplication() {
-            throw new _NotImplementedError2.default();
-        }
-    }]);
-
-    return Application;
+        return Application;
 }();
 
 exports.default = Application;

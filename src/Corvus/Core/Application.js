@@ -77,15 +77,15 @@ class Application {
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
         context.bindBuffer(context.ARRAY_BUFFER, null);
         let vertexSrc = 
-            "attribute vec3 coords;" +
-            "void main(void) {" +
-            "    gl_Position =vec4(coords 1.0);" +
-            "}";
+        'attribute vec2 coords;' +
+        'void main(void) {' +
+        ' gl_Position = vec4(coords, 0.0, 1.0);' + 
+        '}';
 
-        let fragmentSrc =
-            "void main(void) {" +
-            "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" +
-            "}";
+        let fragmentSrc = 
+        'void main(void) {' +
+        ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + 
+        '}';
         this.shader = new Shader(context, vertexSrc, fragmentSrc);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer)
