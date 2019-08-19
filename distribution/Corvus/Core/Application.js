@@ -34,10 +34,6 @@ var _Input = require('../Input/Input');
 
 var _Input2 = _interopRequireDefault(_Input);
 
-var _Shader = require('../Shader/Shader');
-
-var _Shader2 = _interopRequireDefault(_Shader);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -118,7 +114,11 @@ var Application = function () {
         var vertexSrc = "attribute vec3 coords;" + "void main(void) {" + "    gl_Position =vec4(coords 1.0);" + "}";
 
         var fragmentSrc = "void main(void) {" + "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" + "}";
-        this.shader = (0, _Shader2.default)(context, vertexSrc, fragmentSrc);
+
+        var vertexShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
+        var fragmentShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
+
+        this.shader = _programShader(context, vertexShader, fragmentShader);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
 
@@ -231,5 +231,20 @@ var Application = function () {
 
     return Application;
 }();
+
+function _compileShader(context, shaderType, src) {
+    var shader = context.createShader(shaderType);
+    context.shaderSource(shader, src);
+    context.compileShader(shader);
+    return shader;
+}
+
+function _programShader(context, vertexShader, fragmentShader) {
+    var shaderProgram = context.createProgram();
+    context.attachShader(shaderProgram, vertexShader);
+    context.attachShader(shaderProgram, fragmentShader);
+    context.linkProgram(shaderProgram);
+    return shaderProgram;
+}
 
 exports.default = Application;

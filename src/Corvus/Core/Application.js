@@ -6,7 +6,6 @@ import NotImplementedError from '../Error/NotImplementedError';
 import {WindowProps} from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
 import Input from '../Input/Input';
-import createShader from '../Shader/Shader'
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
@@ -86,7 +85,11 @@ class Application {
             "void main(void) {" +
             "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" +
             "}";
-        this.shader = createShader(context, vertexSrc, fragmentSrc);
+
+        let vertexShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
+        let fragmentShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
+
+        this.shader = _programShader(context, vertexShader, fragmentShader);
 
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer)
 
@@ -174,6 +177,22 @@ class Application {
     pushOverlay(layer) {
         this._LayerStack.pushOverlay(layer);
     }
+}
+
+
+function _compileShader(context, shaderType, src) {
+    let shader = context.createShader(shaderType);
+    context.shaderSource(shader, src);
+    context.compileShader(shader);
+    return shader;
+}
+
+function _programShader(context, vertexShader, fragmentShader) {
+    let shaderProgram = context.createProgram();
+    context.attachShader(shaderProgram, vertexShader);
+    context.attachShader(shaderProgram, fragmentShader);
+    context.linkProgram(shaderProgram);
+    return shaderProgram;
 }
 
 export default Application;
