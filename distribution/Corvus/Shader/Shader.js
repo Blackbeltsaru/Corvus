@@ -88,6 +88,11 @@ var Shader = function () {
             context.linkProgram(shaderProgram);
             return shaderProgram;
         }
+    }, {
+        key: "getShader",
+        value: function getShader() {
+            return this.rendererId;
+        }
     }]);
 
     return Shader;

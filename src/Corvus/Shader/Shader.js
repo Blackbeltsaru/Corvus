@@ -69,6 +69,10 @@ class Shader {
         context.linkProgram(shaderProgram);
         return shaderProgram;
     }
+
+    getShader() {
+        return this.rendererId
+    }
 }
 
 export default Shader;
