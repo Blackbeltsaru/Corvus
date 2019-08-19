@@ -101,31 +101,41 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
+        glContext.clearColor(0.5, 0.5, 0.5, 0.9);
         context.enable(context.DEPTH_TEST);
+        glContext.clear(glContext.COLOR_BUFFER_BIT);
+        glContext.clear(glContext.DEPTH_BUFFER_BIT);
         context.viewport(0, 0, this._Window.width, this._Window.height);
 
-        this.vertextArray = context.createVertexArray();
-        context.bindVertexArray(this.vertextArray);
+        // this.vertextArray = context.createVertexArray();
+        // context.bindVertexArray(this.vertextArray);
 
         this.vertextBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
 
-        var verticies = [-0.5, 0.5, 0, 0.5, -0.5, 0, 0, 0.5, 0];
+        var verticies = [-0.5, 0.5, 0.5, -0.5, 0, 0.5];
 
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(verticies), context.STATIC_DRAW);
-        context.enableVertexAttribArray(0);
-        context.vertexAttribPointer(0, 3, context.FLOAT, false, 0, 0);
-
-        this.indexBuffer = context.createBuffer();
-        context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
-
-        var indices = [0, 1, 2];
-        context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
-
+        context.bindBuffer(context.ARRAY_BUFFER, null);
         var vertexSrc = "attribute vec3 coords;" + "void main(void) {" + "    gl_Position =vec4(coords 1.0);" + "}";
 
         var fragmentSrc = "void main(void) {" + "    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);" + "}";
         this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+
+        context.bindBuffer(context.ARRAY_BUFFER, this.vertextBuffer);
+
+        var coords = context.getAttribLocation(this.shader, "coords");
+        context.enableVertexAttribArray(coords);
+        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+
+        // this.indexBuffer = context.createBuffer();
+        // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+
+        // let indices = [0, 1, 2];
+        // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
+        this.shader.bind();
+        context.drawArrays(context.TRIANGLES, 0, verticies.length);
 
         _CorvusLogger2.default.GetCoreLogger().warn("Finished Rendering");
 
@@ -164,16 +174,16 @@ var Application = function () {
 
             //Clear the background color here
             //TODO:(Ryan) this is weblGL specific and should be move out to a platform file
-            var context = this._Window.getContext().getGraphicsContext();
+            // let context = this._Window.getContext().getGraphicsContext();
 
-            context.clearColor(0.5, 0.5, 0.5, 0.9);
-            context.clear(context.COLOR_BUFFER_BIT);
-            context.clear(context.DEPTH_BUFFER_BIT);
+            // context.clearColor(0.5, 0.5, 0.5, 0.9);
+            // context.clear(context.COLOR_BUFFER_BIT);
+            // context.clear(context.DEPTH_BUFFER_BIT);
 
-            this.shader.bind();
+            // this.shader.bind();
 
-            context.bindVertexArray(this.vertextArray);
-            context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0);
+            // context.bindVertexArray(this.vertextArray)
+            // context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0) 
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();
