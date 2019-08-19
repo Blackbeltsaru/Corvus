@@ -57,8 +57,8 @@ var Shader = function () {
             return;
         }
 
-        glContext.detatchShader(this.rendererId, vertexShader);
-        glContext.detatchShader(this.rendererId, fragmentShader);
+        // glContext.detatchShader(this.rendererId, vertexShader);
+        // glContext.detatchShader(this.rendererId, fragmentShader);
     }
 
     _createClass(Shader, [{
