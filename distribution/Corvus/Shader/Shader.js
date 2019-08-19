@@ -74,7 +74,7 @@ var Shader = function () {
     }, {
         key: "_compileShader",
         value: function _compileShader(context, shaderType, src) {
-            var shader = glContext.createShader(shaderType);
+            var shader = context.createShader(shaderType);
             context.shaderSource(shader, src);
             context.compileShader(shader);
             return shader;

@@ -56,7 +56,7 @@ class Shader {
     }
 
     _compileShader(context, shaderType, src) {
-        let shader = glContext.createShader(shaderType);
+        let shader = context.createShader(shaderType);
         context.shaderSource(shader, src);
         context.compileShader(shader);
         return shader;
