@@ -136,7 +136,7 @@ var Application = function () {
             //TODO: do application update-y stuff here
             var context = this._Window.getContext().getGraphicsContext();
 
-            context.clearColor(0.5, 0.5, 0.5, 0.9);
+            context.clearColor(0.8, 0.2, 0.3, 0.9);
             context.enable(context.DEPTH_TEST);
             context.clear(context.COLOR_BUFFER_BIT);
             context.clear(context.DEPTH_BUFFER_BIT);
@@ -154,7 +154,7 @@ var Application = function () {
             var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
             var vertShader = _compileShader(context, context.VERTEX_SHADER, vertexSrc);
 
-            var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+            var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.2, 0.8, 0.3, 0.1);' + '}';
             var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
             var shaderProgram = _programShader(context, vertShader, fragShader);
 

@@ -87,7 +87,7 @@ class Application {
         //TODO: do application update-y stuff here
         let context = this._Window.getContext().getGraphicsContext();
 
-        context.clearColor(0.5, 0.5, 0.5, 0.9);
+        context.clearColor(0.8, 0.2, 0.3, 0.9);
         context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
@@ -111,7 +111,7 @@ class Application {
 
         let fragmentSrc = 
         'void main(void) {' +
-        ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + 
+        ' gl_FragColor = vec4(0.2, 0.8, 0.3, 0.1);' + 
         '}';
         let fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragmentSrc);
         let shaderProgram = _programShader(context, vertShader, fragShader);
