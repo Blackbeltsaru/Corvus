@@ -167,11 +167,15 @@ export function BIT(x) { return 1 << x };
 
 class Application {
 
+    static getInstance() {
+        return Application.instance;
+    }
+
     constructor() {
         //TODO: logging should be removed from release builds
         CorvusLogger.coreLogger.info('Constructing Application');
         CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
-        Application.s_Instance = this;
+        Application.instance = this;
 
         //Bind functions
         this.onEvent = this.onEvent.bind(this);
@@ -185,9 +189,18 @@ class Application {
     }
 
     onEvent() {
-
+        //TODO:(Ryan)
     }
-    
+    pushLayer() {
+        //TODO:(Ryan)
+    }
+    popLayer() {
+        //TODO:(Ryan)
+    }
+    static createApplication() {
+        //TODO:(Ryan)
+    }
+
     run() {
         let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
         let canvas = document.getElementById('canvas');

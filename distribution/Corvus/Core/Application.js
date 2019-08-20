@@ -202,13 +202,20 @@ function BIT(x) {
 // }
 
 var Application = function () {
+    _createClass(Application, null, [{
+        key: 'getInstance',
+        value: function getInstance() {
+            return Application.instance;
+        }
+    }]);
+
     function Application() {
         _classCallCheck(this, Application);
 
         //TODO: logging should be removed from release builds
         _CorvusLogger2.default.coreLogger.info('Constructing Application');
         _CorvusLogger2.default.coreLogger.assert(!Application.getInstance(), "Application already exists");
-        Application.s_Instance = this;
+        Application.instance = this;
 
         //Bind functions
         this.onEvent = this.onEvent.bind(this);
@@ -223,7 +230,19 @@ var Application = function () {
 
     _createClass(Application, [{
         key: 'onEvent',
-        value: function onEvent() {}
+        value: function onEvent() {
+            //TODO:(Ryan)
+        }
+    }, {
+        key: 'pushLayer',
+        value: function pushLayer() {
+            //TODO:(Ryan)
+        }
+    }, {
+        key: 'popLayer',
+        value: function popLayer() {
+            //TODO:(Ryan)
+        }
     }, {
         key: 'run',
         value: function run() {
@@ -263,6 +282,11 @@ var Application = function () {
             context.enableVertexAttribArray(coords);
 
             context.drawArrays(context.TRIANGLES, 0, 3);
+        }
+    }], [{
+        key: 'createApplication',
+        value: function createApplication() {
+            //TODO:(Ryan)
         }
     }]);
 
