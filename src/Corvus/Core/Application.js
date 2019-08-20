@@ -81,6 +81,18 @@ class Application {
         // context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
         // context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
 
+
+        context.clearColor(0.8, 0.2, 0.3, 0.9);
+        context.enable(context.DEPTH_TEST);
+        context.clear(context.COLOR_BUFFER_BIT);
+        context.clear(context.DEPTH_BUFFER_BIT);
+        context.viewport(0, 0, this._Window.width, this._Window.height);
+
+        // this.shader.bind();
+        // context.bindVertexArray(this.vertexArray)
+
+        context.drawArrays(context.TRIANGLES, 0, 3);
+
         //=================================================================================
         //=================================================================================
         //END HACK
@@ -113,16 +125,16 @@ class Application {
     run() {
         let context = this._Window.getContext().getGraphicsContext();
 
-        context.clearColor(0.8, 0.2, 0.3, 0.9);
-        context.enable(context.DEPTH_TEST);
-        context.clear(context.COLOR_BUFFER_BIT);
-        context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, this._Window.width, this._Window.height);
+        // context.clearColor(0.8, 0.2, 0.3, 0.9);
+        // context.enable(context.DEPTH_TEST);
+        // context.clear(context.COLOR_BUFFER_BIT);
+        // context.clear(context.DEPTH_BUFFER_BIT);
+        // context.viewport(0, 0, this._Window.width, this._Window.height);
 
-        // this.shader.bind();
-        // context.bindVertexArray(this.vertexArray)
+        // // this.shader.bind();
+        // // context.bindVertexArray(this.vertexArray)
 
-        context.drawArrays(context.TRIANGLES, 0, 3);
+        // context.drawArrays(context.TRIANGLES, 0, 3);
 
 
         // for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
