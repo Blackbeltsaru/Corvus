@@ -226,6 +226,43 @@ var Application = function () {
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new _LayerStack2.default();
         _CorvusLogger2.default.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
+
+        //Setup webGL buffers
+        //HACK
+        //=================================================================================
+        //=================================================================================
+        //TODO:(Ryan) this is webGL specific and should be move to a platform file
+        var context = this._Window.getContext().getGraphicsContext();
+        //TODO:(Ryan) read about these methods and understand whats going on
+
+
+        var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
+
+        //Bind to the array buffer to create a vertex buffer
+        //This vertext buffer is used later for rendering the object
+        var vertexBuffer = context.createBuffer();
+        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
+        context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
+        context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
+
+
+        //Lets build and compile both the vertex and fragment shaders
+        var vertShaderCode = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
+        var vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
+
+        var fragShaderCode = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+        var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
+        var shaderProgram = _programShader(context, vertShader, fragShader);
+
+        //Each attribute on the vertex shader needs to be bound to a vertex buffer
+        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
+        var coords = context.getAttribLocation(shaderProgram, "coords");
+        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+        context.enableVertexAttribArray(coords);
+
+        //=================================================================================
+        //=================================================================================
+        //END HACK
     }
 
     _createClass(Application, [{
@@ -246,40 +283,13 @@ var Application = function () {
     }, {
         key: 'run',
         value: function run() {
-            var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
-            var canvas = document.getElementById('canvas');
-            var context = canvas.getContext('webgl2');
-
-            if (context === null) {
-                return;
-            }
+            var context = this._Window.getContext().getGraphicsContext();
 
             context.clearColor(0.8, 0.2, 0.3, 0.9);
             context.enable(context.DEPTH_TEST);
             context.clear(context.COLOR_BUFFER_BIT);
             context.clear(context.DEPTH_BUFFER_BIT);
             context.viewport(0, 0, canvas.width, canvas.height);
-
-            //Bind to the array buffer to create a vertex buffer
-            //This vertext buffer is used later for rendering the object
-            var vertexBuffer = context.createBuffer();
-            context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-            context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
-            context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
-
-            //Lets build and compile both the vertex and fragment shaders
-            var vertShaderCode = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
-            var vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
-
-            var fragShaderCode = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-            var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
-            var shaderProgram = _programShader(context, vertShader, fragShader);
-
-            //Each attribute on the vertex shader needs to be bound to a vertex buffer
-            context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-            var coords = context.getAttribLocation(shaderProgram, "coords");
-            context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
-            context.enableVertexAttribArray(coords);
 
             context.drawArrays(context.TRIANGLES, 0, 3);
         }
