@@ -156,7 +156,7 @@ var Application = function () {
 
             context.bindVertexArray(this.vertexArray);
 
-            context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0);
+            context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_SHORT, 0);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();
