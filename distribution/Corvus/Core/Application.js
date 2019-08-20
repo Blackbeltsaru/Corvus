@@ -84,6 +84,9 @@ var Application = function () {
         context.enable(context.DEPTH_TEST);
         context.viewport(0, 0, canvas.width, canvas.height);
 
+        this.vertexArray = context.createVertexArray();
+        context.bindVertexArray(this.vertexArray);
+
         var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
         //Bind to the array buffer to create a vertex buffer
@@ -91,8 +94,6 @@ var Application = function () {
         var vertexBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
-        context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
-
 
         //Lets build and compile both the vertex and fragment shaders
         var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
@@ -102,7 +103,6 @@ var Application = function () {
         this.shader.bind();
 
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
-        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         var coords = context.getAttribLocation(this.shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);

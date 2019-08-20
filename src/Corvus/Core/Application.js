@@ -44,6 +44,9 @@ class Application {
         context.enable(context.DEPTH_TEST);
         context.viewport(0, 0, canvas.width, canvas.height);
 
+        this.vertexArray = context.createVertexArray();
+        context.bindVertexArray(this.vertexArray);
+
 
         let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
@@ -52,7 +55,6 @@ class Application {
         let vertexBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
-        context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
 
 
         //Lets build and compile both the vertex and fragment shaders
@@ -70,7 +72,6 @@ class Application {
         this.shader.bind();
         
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
-        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         let coords = context.getAttribLocation(this.shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
