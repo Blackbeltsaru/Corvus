@@ -247,16 +247,14 @@ var Application = function () {
 
 
         //Lets build and compile both the vertex and fragment shaders
-        var vertShaderCode = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
-        var vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
+        var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
 
-        var fragShaderCode = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-        var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
-        var shaderProgram = _programShader(context, vertShader, fragShader);
+        var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+        var shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
 
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-        var coords = context.getAttribLocation(shaderProgram, "coords");
+        var coords = context.getAttribLocation(shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
