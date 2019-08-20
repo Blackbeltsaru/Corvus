@@ -41,8 +41,8 @@ class Application {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         let context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-        context.enable(context.DEPTH_TEST);
-        context.viewport(0, 0, this._Window.width, this._Window.height);
+        // context.enable(context.DEPTH_TEST);
+        // context.viewport(0, 0, this._Window.width, this._Window.height);
 
         let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
@@ -113,21 +113,23 @@ class Application {
         let context = this._Window.getContext().getGraphicsContext();
 
         context.clearColor(0.8, 0.2, 0.3, 0.9);
+        context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
+        context.viewport(0, 0, this._Window.width, this._Window.height);
 
-        this.shader.bind();
+        // this.shader.bind();
         // context.bindVertexArray(this.vertexArray)
 
         context.drawArrays(context.TRIANGLES, 0, 3);
 
 
-        for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
-            this._LayerStack.get(it).onUpdate();
-        }
-        //TODO:(Ryan) Do we need to have a layer render here?
+        // for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+        //     this._LayerStack.get(it).onUpdate();
+        // }
+        // //TODO:(Ryan) Do we need to have a layer render here?
 
-        if(this._Running) this._Window.onUpdate(this.run);
+        // if(this._Running) this._Window.onUpdate(this.run);
     }
 }
 
