@@ -277,12 +277,18 @@ var Application = function () {
     }, {
         key: 'pushLayer',
         value: function pushLayer() {
-            //TODO:(Ryan)
+            this._LayerStack.pushLayer(layer);
+            layer.onAttach();
         }
     }, {
         key: 'popLayer',
         value: function popLayer() {
-            //TODO:(Ryan)
+            this._LayerStack.pushOverlay(layer);
+        }
+    }, {
+        key: 'getWindow',
+        value: function getWindow() {
+            return this._Window;
         }
     }, {
         key: 'run',
@@ -300,7 +306,7 @@ var Application = function () {
     }], [{
         key: 'createApplication',
         value: function createApplication() {
-            //TODO:(Ryan)
+            throw new _NotImplementedError2.default();
         }
     }]);
 

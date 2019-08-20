@@ -241,13 +241,17 @@ class Application {
         }
     }
     pushLayer() {
-        //TODO:(Ryan)
+        this._LayerStack.pushLayer(layer);
+        layer.onAttach();
     }
     popLayer() {
-        //TODO:(Ryan)
+        this._LayerStack.pushOverlay(layer);
     }
+
+    getWindow() {return this._Window;}
+    
     static createApplication() {
-        //TODO:(Ryan)
+        throw new NotImplementedError();
     }
 
     run() {
