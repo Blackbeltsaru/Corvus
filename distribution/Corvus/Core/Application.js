@@ -1,7 +1,7 @@
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
-        value: true
+    value: true
 });
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -45,7 +45,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
 function BIT(x) {
-        return 1 << x;
+    return 1 << x;
 };
 
 // class Application {
@@ -202,69 +202,69 @@ function BIT(x) {
 // }
 
 var Application = function () {
-        function Application() {
-                _classCallCheck(this, Application);
+    function Application() {
+        _classCallCheck(this, Application);
+    }
+
+    _createClass(Application, [{
+        key: 'run',
+        value: function run() {
+            var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
+            var canvas = document.getElementById('canvas');
+            var context = canvas.getContext('webgl2');
+
+            if (context === null) {
+                return;
+            }
+
+            context.clearColor(0.8, 0.2, 0.3, 0.9);
+            context.enable(context.DEPTH_TEST);
+            context.clear(context.COLOR_BUFFER_BIT);
+            context.clear(context.DEPTH_BUFFER_BIT);
+            context.viewport(0, 0, canvas.width, canvas.height);
+
+            //Bind to the array buffer to create a vertex buffer
+            //This vertext buffer is used later for rendering the object
+            var vertexBuffer = context.createBuffer();
+            context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
+            context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
+            context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
+
+            //Lets build and compile both the vertex and fragment shaders
+            var vertShaderCode = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
+            var vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
+
+            var fragShaderCode = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
+            var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
+            var shaderProgram = _programShader(context, vertShader, fragShader);
+
+            //Each attribute on the vertex shader needs to be bound to a vertex buffer
+            context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
+            var coords = context.getAttribLocation(shaderProgram, "coords");
+            context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+            context.enableVertexAttribArray(coords);
+
+            context.drawArrays(context.TRIANGLES, 0, vertices.length);
         }
+    }]);
 
-        _createClass(Application, [{
-                key: 'run',
-                value: function run() {
-                        var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
-                        var canvas = document.getElementById('canvas');
-                        var context = canvas.getContext('webgl2');
-
-                        if (context === null) {
-                                return;
-                        }
-
-                        context.clearColor(0.8, 0.2, 0.3, 0.9);
-                        context.enable(context.DEPTH_TEST);
-                        context.clear(context.COLOR_BUFFER_BIT);
-                        context.clear(context.DEPTH_BUFFER_BIT);
-                        context.viewport(0, 0, canvas.width, canvas.height);
-
-                        //Bind to the array buffer to create a vertex buffer
-                        //This vertext buffer is used later for rendering the object
-                        var vertexBuffer = context.createBuffer();
-                        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-                        context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
-                        context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
-
-                        //Lets build and compile both the vertex and fragment shaders
-                        var vertShaderCode = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
-                        var vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
-
-                        var fragShaderCode = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-                        var fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
-                        var shaderProgram = _programShader(context, vertShader, fragShader);
-
-                        //Each attribute on the vertex shader needs to be bound to a vertex buffer
-                        context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-                        var coords = context.getAttribLocation(shaderProgram, "coords");
-                        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
-                        context.enableVertexAttribArray(coords);
-
-                        context.drawArrays(context.TRIANGLES, 0, vertices.length);
-                }
-        }]);
-
-        return Application;
+    return Application;
 }();
 
 var _compileShader = function _compileShader(context, sahderType, shaderCode) {
-        var shader = context.createShader(sahderType);
-        context.shaderSource(shader, shaderCode);
-        context.compileShader(shader);
-        return shader;
+    var shader = context.createShader(sahderType);
+    context.shaderSource(shader, shaderCode);
+    context.compileShader(shader);
+    return shader;
 };
 
 var _programShader = function _programShader(context, vertexShader, fragmentShader) {
-        var shaderProgram = context.createProgram();
-        context.attachShader(shaderProgram, vertexShader);
-        context.attachShader(shaderProgram, fragmentShader);
-        context.linkProgram(shaderProgram);
-        context.useProgram(shaderProgram);
-        return shaderProgram;
+    var shaderProgram = context.createProgram();
+    context.attachShader(shaderProgram, vertexShader);
+    context.attachShader(shaderProgram, fragmentShader);
+    context.linkProgram(shaderProgram);
+    context.useProgram(shaderProgram);
+    return shaderProgram;
 };
 
 exports.default = Application;

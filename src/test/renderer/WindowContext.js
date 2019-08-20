@@ -35,7 +35,7 @@ const _renderer = (vertices) => {
     glContext.vertexAttribPointer(coords, 2, glContext.FLOAT, false, 0, 0);
     glContext.enableVertexAttribArray(coords);
 
-    glContext.drawArrays(glContext.TRIANGLES, 0, vertices.length);
+    glContext.drawArrays(glContext.TRIANGLES, 0, 3);
 
 }
 
