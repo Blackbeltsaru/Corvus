@@ -21,7 +21,7 @@ var Shader = function () {
         this.glContext = glContext;
 
         var vertexShader = this._compileShader(glContext, glContext.VERTEX_SHADER, vertexSrc);
-        var message = glContext.getShaderInfoLog(vertexShader);
+        // let message = glContext.getShaderInfoLog(vertexShader);
         // if(message.length > 0) {
         //     glContext.deleteShader(vertexShader);
 
@@ -32,7 +32,7 @@ var Shader = function () {
         // }
 
         var fragmentShader = this._compileShader(glContext, glContext.FRAGMENT_SHADER, fragmentSrc);
-        message = glContext.getShaderInfoLog(fragmentShader);
+        // message = glContext.getShaderInfoLog(fragmentShader);
         // if(message.length > 0) {
         //     glContext.deleteShader(vertexShader);
         //     glContext.deleteShader(fragmentShader);
@@ -44,7 +44,7 @@ var Shader = function () {
         // }
 
         this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
-        var linkStatus = glContext.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
+        // let linkStatus = glContext.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
         // if(!linkStatus) {
         //     glContext.deleteProgram(this.rendererId);
         //     glContext.deleteShader(vertexShader);

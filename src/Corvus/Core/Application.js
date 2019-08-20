@@ -218,6 +218,7 @@ class Application {
         ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
         '}';
         let shader = new Shader(context, vertexSrc, fragmentSrc);
+        shader.bind();
         
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);

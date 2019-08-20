@@ -7,7 +7,7 @@ class Shader {
         this.glContext = glContext;
 
         let vertexShader = this._compileShader(glContext, glContext.VERTEX_SHADER, vertexSrc)
-        let message = glContext.getShaderInfoLog(vertexShader);
+        // let message = glContext.getShaderInfoLog(vertexShader);
         // if(message.length > 0) {
         //     glContext.deleteShader(vertexShader);
 
@@ -18,7 +18,7 @@ class Shader {
         // }
 
         let fragmentShader = this._compileShader(glContext, glContext.FRAGMENT_SHADER, fragmentSrc);
-        message = glContext.getShaderInfoLog(fragmentShader);
+        // message = glContext.getShaderInfoLog(fragmentShader);
         // if(message.length > 0) {
         //     glContext.deleteShader(vertexShader);
         //     glContext.deleteShader(fragmentShader);
@@ -30,7 +30,7 @@ class Shader {
         // }
 
         this.rendererId = this._programShader(glContext, vertexShader, fragmentShader);
-        let linkStatus = glContext.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
+        // let linkStatus = glContext.getProgramParameter(this.rendererId, glContext.LINK_STATUS);
         // if(!linkStatus) {
         //     glContext.deleteProgram(this.rendererId);
         //     glContext.deleteShader(vertexShader);
