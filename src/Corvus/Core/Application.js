@@ -60,13 +60,16 @@ class Application {
         //Lets build and compile both the vertex and fragment shaders
         let vertexSrc =
         'attribute vec3 coords;' +
+        'varying vec3 outPosition;' +
         'void main(void) {' +
+        ' outPosition = coords;' + 
         ' gl_Position = vec4(coords, 1.0);' +
         '}';
         
         let fragmentSrc =
+        'attribute vec3 outPosition;'
         'void main(void) {' +
-        ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
+        ' gl_FragColor = vec4(outPosition, 0.1);' +
         '}';
         this.shader = new Shader(context, vertexSrc, fragmentSrc);
         this.shader.bind();
