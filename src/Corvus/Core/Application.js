@@ -213,7 +213,7 @@ class Application {
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
-        context.drawArrays(context.TRIANGLES, 0, vertices.length);
+        context.drawArrays(context.TRIANGLES, 0, 3);
     }
 }
 
