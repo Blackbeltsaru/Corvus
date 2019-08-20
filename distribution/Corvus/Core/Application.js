@@ -107,6 +107,11 @@ var Application = function () {
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
+        var indices = [0, 1, 2];
+        var indexBuffer = context.createBuffer();
+        context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, indexBuffer);
+        context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
+
         //=================================================================================
         //=================================================================================
         //END HACK
