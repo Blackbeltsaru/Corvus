@@ -67,7 +67,7 @@ class Application {
         '}';
         
         let fragmentSrc =
-        'attribute vec3 outPosition;'
+        'varying vec3 outPosition;'
         'void main(void) {' +
         ' gl_FragColor = vec4(outPosition, 0.1);' +
         '}';
