@@ -234,30 +234,37 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-
+        context.enable(context.DEPTH_TEST);
+        context.viewport(0, 0, this._Window.width, this._Window.height);
 
         var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
+
+        this.vertexArray = context.createVertexArray();
+        context.bindVertexArray(this.vertexArray);
 
         //Bind to the array buffer to create a vertex buffer
         //This vertext buffer is used later for rendering the object
         var vertexBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
-        context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
-
 
         //Lets build and compile both the vertex and fragment shaders
         var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
 
         var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-        var shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
-        shader.bind();
+        this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+        this.shader.bind();
 
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-        var coords = context.getAttribLocation(shader.getShader(), "coords");
+        var coords = context.getAttribLocation(this.shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
+
+        var indices = [0, 1, 2];
+        this.indexBuffer = context.createBuffer();
+        context.bindBuffer(context.ELEMENT_ARRAY_BUFFER, this.indexBuffer);
+        context.bufferData(context.ELEMENT_ARRAY_BUFFER, new Uint16Array(indices), context.STATIC_DRAW);
 
         //=================================================================================
         //=================================================================================
@@ -267,7 +274,12 @@ var Application = function () {
     _createClass(Application, [{
         key: 'onEvent',
         value: function onEvent() {
-            //TODO:(Ryan)
+            var dispatcher = new _Events.EventDispatcher(event);
+
+            for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+                this._LayerStack.get(it).onEvent(e);
+                if (e.handled) break;
+            }
         }
     }, {
         key: 'pushLayer',
@@ -285,12 +297,20 @@ var Application = function () {
             var context = this._Window.getContext().getGraphicsContext();
 
             context.clearColor(0.8, 0.2, 0.3, 0.9);
-            context.enable(context.DEPTH_TEST);
             context.clear(context.COLOR_BUFFER_BIT);
             context.clear(context.DEPTH_BUFFER_BIT);
-            context.viewport(0, 0, canvas.width, canvas.height);
 
-            context.drawArrays(context.TRIANGLES, 0, 3);
+            this.shader.bind();
+            context.bindVertexArray(this.vertexArray);
+
+            context.drawElements(context.TRIANGLE, 3, context.UNSIGNED_INT, 0);
+
+            for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+                this._LayerStack.get(it).onUpdate();
+            }
+            //TODO:(Ryan) Do we need to have a layer render here?
+
+            if (this._Running) this._Window.onUpdate(this.run);
         }
     }], [{
         key: 'createApplication',
