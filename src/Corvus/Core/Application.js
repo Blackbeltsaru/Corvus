@@ -41,6 +41,8 @@ class Application {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         let context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
+        context.enable(context.DEPTH_TEST);
+        context.viewport(0, 0, canvas.width, canvas.height);
 
 
         let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
@@ -64,12 +66,12 @@ class Application {
         'void main(void) {' +
         ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
         '}';
-        let shader = new Shader(context, vertexSrc, fragmentSrc);
-        shader.bind();
+        this.shader = new Shader(context, vertexSrc, fragmentSrc);
+        this.shader.bind();
         
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-        let coords = context.getAttribLocation(shader.getShader(), "coords");
+        let coords = context.getAttribLocation(this.shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
@@ -105,10 +107,10 @@ class Application {
         let context = this._Window.getContext().getGraphicsContext();
 
         context.clearColor(0.8, 0.2, 0.3, 0.9);
-        context.enable(context.DEPTH_TEST);
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
-        context.viewport(0, 0, canvas.width, canvas.height);
+
+        this.shader.bind()
 
         context.drawArrays(context.TRIANGLES, 0, 3);
 

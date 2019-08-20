@@ -81,7 +81,8 @@ var Application = function () {
         //TODO:(Ryan) this is webGL specific and should be move to a platform file
         var context = this._Window.getContext().getGraphicsContext();
         //TODO:(Ryan) read about these methods and understand whats going on
-
+        context.enable(context.DEPTH_TEST);
+        context.viewport(0, 0, canvas.width, canvas.height);
 
         var vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
 
@@ -97,12 +98,12 @@ var Application = function () {
         var vertexSrc = 'attribute vec2 coords;' + 'void main(void) {' + ' gl_Position = vec4(coords, 0.0, 1.0);' + '}';
 
         var fragmentSrc = 'void main(void) {' + ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + '}';
-        var shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
-        shader.bind();
+        this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
+        this.shader.bind();
 
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-        var coords = context.getAttribLocation(shader.getShader(), "coords");
+        var coords = context.getAttribLocation(this.shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
@@ -143,10 +144,10 @@ var Application = function () {
             var context = this._Window.getContext().getGraphicsContext();
 
             context.clearColor(0.8, 0.2, 0.3, 0.9);
-            context.enable(context.DEPTH_TEST);
             context.clear(context.COLOR_BUFFER_BIT);
             context.clear(context.DEPTH_BUFFER_BIT);
-            context.viewport(0, 0, canvas.width, canvas.height);
+
+            this.shader.bind();
 
             context.drawArrays(context.TRIANGLES, 0, 3);
 
