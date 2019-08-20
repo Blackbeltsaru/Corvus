@@ -303,7 +303,7 @@ var Application = function () {
             this.shader.bind();
             context.bindVertexArray(this.vertexArray);
 
-            context.drawElements(context.TRIANGLE, 3, context.UNSIGNED_INT, 0);
+            context.drawArrays(context.TRIANGLES, 0, 3);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
                 this._LayerStack.get(it).onUpdate();
