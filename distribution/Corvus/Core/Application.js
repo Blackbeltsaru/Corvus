@@ -267,8 +267,12 @@ var Application = function () {
     _createClass(Application, [{
         key: 'onEvent',
         value: function onEvent() {
+            var dispatcher = new _Events.EventDispatcher(event);
 
-            //TODO:(Ryan)
+            for (var it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+                this._LayerStack.get(it).onEvent(e);
+                if (e.handled) break;
+            }
         }
     }, {
         key: 'pushLayer',

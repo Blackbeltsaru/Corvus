@@ -233,8 +233,12 @@ class Application {
     }
 
     onEvent() {
-        
-        //TODO:(Ryan)
+        let dispatcher = new EventDispatcher(event);
+
+        for(let it = this._LayerStack.end(); it !== this._LayerStack.begin(); it--) {
+            this._LayerStack.get(it).onEvent(e);
+            if(e.handled) break;
+        }
     }
     pushLayer() {
         //TODO:(Ryan)
