@@ -54,6 +54,7 @@ class Application {
         let vertexBuffer = context.createBuffer();
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
+        context.bindBuffer(context.ARRAY_BUFFER, null)
 
         //Lets build and compile both the vertex and fragment shaders
         let vertexSrc =
@@ -66,12 +67,12 @@ class Application {
         'void main(void) {' +
         ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
         '}';
-        this.shader = new Shader(context, vertexSrc, fragmentSrc);
-        this.shader.bind();
+        let shader = new Shader(context, vertexSrc, fragmentSrc);
+        shader.bind();
         
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         context.bindBuffer(context.ARRAY_BUFFER, vertexBuffer);
-        let coords = context.getAttribLocation(this.shader.getShader(), "coords");
+        let coords = context.getAttribLocation(shader.getShader(), "coords");
         context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
