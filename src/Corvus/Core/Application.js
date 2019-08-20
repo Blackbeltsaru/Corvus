@@ -1,16 +1,16 @@
 import CorvusLogger from '../Logger/CorvusLogger';
 import WebWindow from '../../platform/Web/WebWindow';
-import {EventDispatcher} from '../Events/Events';
-import {WindowCloseEvent} from '../Events/ApplicationEvent'
+import { EventDispatcher } from '../Events/Events';
+import { WindowCloseEvent } from '../Events/ApplicationEvent'
 import NotImplementedError from '../Error/NotImplementedError';
-import {WindowProps} from '../Window/Window';
+import { WindowProps } from '../Window/Window';
 import LayerStack from '../Layer/LayerStack';
 import Input from '../Input/Input';
 import Shader from '../Shader/Shader'
 
 //This returns a bit field with the x+1th bit on
 //This can be used for bitwise operations 
-export function BIT(x){return 1 << x}; 
+export function BIT(x) { return 1 << x };
 
 // class Application {
 
@@ -133,7 +133,7 @@ export function BIT(x){return 1 << x};
 
 //         // this.shader.bind()
 //         context.drawArrays(context.TRIANGLES, 0, verticies.length);
-        
+
 //         // for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
 //         //     this._LayerStack.get(it).onUpdate();
 //         // }
@@ -159,21 +159,41 @@ export function BIT(x){return 1 << x};
 //         this._LayerStack.pushLayer(layer);
 //         layer.onAttach();
 //     }
-    
+
 //     pushOverlay(layer) {
 //         this._LayerStack.pushOverlay(layer);
 //     }
 // }
 
 class Application {
+
     constructor() {
+        //TODO: logging should be removed from release builds
+        CorvusLogger.coreLogger.info('Constructing Application');
+        CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
+        Application.s_Instance = this;
+
+        //Bind functions
+        this.onEvent = this.onEvent.bind(this);
+        this.run = this.run.bind(this);
+
+        this._Running = true;
+        this._Window = WebWindow.create(new WindowProps());
+        this._Window.setEventCallback(this.onEvent);
+        this._LayerStack = new LayerStack();
+        CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
     }
+
+    onEvent() {
+
+    }
+    
     run() {
         let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
         let canvas = document.getElementById('canvas');
         let context = canvas.getContext('webgl2');
 
-        if(context === null) {
+        if (context === null) {
             return
         }
 
@@ -183,7 +203,7 @@ class Application {
         context.clear(context.DEPTH_BUFFER_BIT);
         context.viewport(0, 0, canvas.width, canvas.height);
 
-        
+
 
         //Bind to the array buffer to create a vertex buffer
         //This vertext buffer is used later for rendering the object
@@ -193,16 +213,16 @@ class Application {
         context.bindBuffer(context.ARRAY_BUFFER, null); //Unbind the array buffer
 
         //Lets build and compile both the vertex and fragment shaders
-        let vertShaderCode = 
+        let vertShaderCode =
             'attribute vec2 coords;' +
             'void main(void) {' +
-            ' gl_Position = vec4(coords, 0.0, 1.0);' + 
+            ' gl_Position = vec4(coords, 0.0, 1.0);' +
             '}';
         let vertShader = _compileShader(context, context.VERTEX_SHADER, vertShaderCode);
 
-        let fragShaderCode = 
+        let fragShaderCode =
             'void main(void) {' +
-            ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' + 
+            ' gl_FragColor = vec4(0.0, 0.0, 0.0, 0.1);' +
             '}';
         let fragShader = _compileShader(context, context.FRAGMENT_SHADER, fragShaderCode);
         let shaderProgram = _programShader(context, vertShader, fragShader);
