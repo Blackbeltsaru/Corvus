@@ -249,7 +249,7 @@ class Application {
     }
 
     getWindow() {return this._Window;}
-    
+
     static createApplication() {
         throw new NotImplementedError();
     }
@@ -264,6 +264,13 @@ class Application {
         context.viewport(0, 0, canvas.width, canvas.height);
 
         context.drawArrays(context.TRIANGLES, 0, 3);
+
+        for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
+            this._LayerStack.get(it).onUpdate();
+        }
+        //TODO:(Ryan) Do we need to have a layer render here?
+
+        if(this._Running) this._Window.onUpdate(this.run);
     }
 }
 
