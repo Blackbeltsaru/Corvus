@@ -154,6 +154,8 @@ var Application = function () {
 
             this.shader.bind();
 
+            context.bindVertexArray(this.vertexArray);
+
             context.drawArrays(context.TRIANGLES, 0, 3);
 
             for (var it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {

@@ -116,7 +116,9 @@ class Application {
         context.clear(context.COLOR_BUFFER_BIT);
         context.clear(context.DEPTH_BUFFER_BIT);
 
-        this.shader.bind()
+        this.shader.bind();
+        
+        context.bindVertexArray(this.vertexArray);
 
         context.drawArrays(context.TRIANGLES, 0, 3);
 
