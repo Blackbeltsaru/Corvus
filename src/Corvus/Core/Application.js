@@ -48,7 +48,7 @@ class Application {
         context.bindVertexArray(this.vertexArray);
 
 
-        let vertices = [-0.5, 0.5, -0.5, -0.5, 0.0, -0.5];
+        let vertices = [-0.5, 0.5, 0.0, -0.5, -0.5, 0.0, 0.0, -0.5, 0.0];
 
         //Bind to the array buffer to create a vertex buffer
         //This vertext buffer is used later for rendering the object
@@ -59,9 +59,9 @@ class Application {
 
         //Lets build and compile both the vertex and fragment shaders
         let vertexSrc =
-        'attribute vec2 coords;' +
+        'attribute vec3 coords;' +
         'void main(void) {' +
-        ' gl_Position = vec4(coords, 0.0, 1.0);' +
+        ' gl_Position = vec4(coords, 1.0);' +
         '}';
         
         let fragmentSrc =
@@ -73,7 +73,7 @@ class Application {
         
         //Each attribute on the vertex shader needs to be bound to a vertex buffer
         let coords = context.getAttribLocation(this.shader.getShader(), "coords");
-        context.vertexAttribPointer(coords, 2, context.FLOAT, false, 0, 0);
+        context.vertexAttribPointer(coords, 3, context.FLOAT, false, 0, 0);
         context.enableVertexAttribArray(coords);
 
         let indices = [0, 1, 2];
@@ -120,7 +120,7 @@ class Application {
 
         context.bindVertexArray(this.vertexArray);
 
-        context.drawElements(context.TRIANGLES, 3, context.UNSIGNED_INT, 0);
+        context.drawArrays(context.TRIANGLES, 0, 3);
 
         for(let it = this._LayerStack.begin(); it !== this._LayerStack.end(); it++) {
             this._LayerStack.get(it).onUpdate();
