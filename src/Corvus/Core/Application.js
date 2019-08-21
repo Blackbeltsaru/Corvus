@@ -71,7 +71,7 @@ class Application {
         'precision mediump float;' + 
         'varying vec3 outPosition;' + 
         'void main(void) {' +
-        ' gl_FragColor = vec4(outPosition, 0.1);' +
+        ' gl_FragColor = vec4(outPosition * 0.5 + 0.5, 1);' +
         '}';
         this.shader = new Shader(context, vertexSrc, fragmentSrc);
         this.shader.bind();
