@@ -96,10 +96,9 @@ var Application = function () {
         context.bufferData(context.ARRAY_BUFFER, new Float32Array(vertices), context.STATIC_DRAW);
 
         //Lets build and compile both the vertex and fragment shaders
-        var vertexSrc = 'attribute vec3 coords;' + 'varying vec3 outPosition;' + 'void main(void) {' + ' outPosition = coords;' + ' gl_Position = vec4(coords, 1.0);' + '}';
+        var vertexSrc = 'precision mediump float;' + 'attribute vec3 coords;' + 'varying vec3 outPosition;' + 'void main(void) {' + ' outPosition = coords;' + ' gl_Position = vec4(coords, 1.0);' + '}';
 
-        var fragmentSrc = 'varying vec3 outPosition;';
-        'void main(void) {' + ' gl_FragColor = vec4(outPosition, 0.1);' + '}';
+        var fragmentSrc = 'precision mediump float;' + 'varying vec3 outPosition;' + 'void main(void) {' + ' gl_FragColor = vec4(outPosition, 0.1);' + '}';
         this.shader = new _Shader2.default(context, vertexSrc, fragmentSrc);
         this.shader.bind();
 

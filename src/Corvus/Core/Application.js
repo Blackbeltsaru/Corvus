@@ -59,6 +59,7 @@ class Application {
 
         //Lets build and compile both the vertex and fragment shaders
         let vertexSrc =
+        'precision mediump float;' + 
         'attribute vec3 coords;' +
         'varying vec3 outPosition;' +
         'void main(void) {' +
@@ -67,7 +68,8 @@ class Application {
         '}';
         
         let fragmentSrc =
-        'varying vec3 outPosition;'
+        'precision mediump float;' + 
+        'varying vec3 outPosition;' + 
         'void main(void) {' +
         ' gl_FragColor = vec4(outPosition, 0.1);' +
         '}';
