@@ -56,9 +56,6 @@ var Shader = function () {
 
             throw new Error("Shader link failure " + _message);
         }
-
-        glContext.detatchShader(this.rendererId, vertexShader);
-        glContext.detatchShader(this.rendererId, fragmentShader);
     }
 
     _createClass(Shader, [{

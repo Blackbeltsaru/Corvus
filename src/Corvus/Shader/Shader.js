@@ -42,9 +42,6 @@ class Shader {
 
             throw new Error(`Shader link failure ${message}`);
         }
-
-        glContext.detatchShader(this.rendererId, vertexShader);
-        glContext.detatchShader(this.rendererId, fragmentShader);
     }
 
     bind() {
