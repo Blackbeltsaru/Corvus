@@ -19,6 +19,7 @@ class Application {
     }
 
     constructor() {
+    
         //TODO: logging should be removed from release builds
         CorvusLogger.coreLogger.info('Constructing Application');
         CorvusLogger.coreLogger.assert(!Application.getInstance(), "Application already exists");
@@ -29,7 +30,7 @@ class Application {
         this.run = this.run.bind(this);
 
         this._Running = true;
-        this._Window = WebWindow.create(new WindowProps());
+        this._Window = WebWindow.create(new WindowProps(this.getTitle, this.getWindowWidth, this.getWindowHeight));
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
         CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
@@ -108,6 +109,10 @@ class Application {
 
     getWindow() {return this._Window;}
 
+    getTitle() {return "Corvus Engine";}
+    getWindowWidth() {return 1280;}
+    getWindowHeight() {return 720;}
+
     static createApplication() {
         throw new NotImplementedError();
     }
@@ -132,22 +137,6 @@ class Application {
 
         if(this._Running) this._Window.onUpdate(this.run);
     }
-}
-
-const _compileShader = (context, sahderType, shaderCode) => {
-    let shader = context.createShader(sahderType);
-    context.shaderSource(shader, shaderCode);
-    context.compileShader(shader);
-    return shader;
-}
-
-const _programShader = (context, vertexShader, fragmentShader) => {
-    let shaderProgram = context.createProgram();
-    context.attachShader(shaderProgram, vertexShader);
-    context.attachShader(shaderProgram, fragmentShader);
-    context.linkProgram(shaderProgram);
-    context.useProgram(shaderProgram);
-    return shaderProgram;
 }
 
 export default Application;

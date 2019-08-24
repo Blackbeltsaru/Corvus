@@ -7,7 +7,7 @@ class Key {
         this._mouseY = 0;
     }
 
-    isDOwn(keyCode) {
+    isDown(keyCode) {
         return this._keyPressed[keyCode];
     }
 

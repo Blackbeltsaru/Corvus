@@ -33,7 +33,7 @@ class WebWindow extends Window {
     }
 
     init(props) {
-        this._Data = new WindowData(props.title, props.width, props.height)
+        this._Data = WindowData(props.title, props.width, props.height)
         CorvusLogger.GetCoreLogger().info(`Creating window ${props.title} (${props.width}, ${props.height})`);
 
         if(!WebWindow.initialized) {

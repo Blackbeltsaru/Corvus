@@ -19,7 +19,7 @@ var Key = function () {
     }
 
     _createClass(Key, [{
-        key: "isDOwn",
+        key: "isDown",
         value: function isDOwn(keyCode) {
             return this._keyPressed[keyCode];
         }
