@@ -30,7 +30,7 @@ class Application {
         this.run = this.run.bind(this);
 
         this._Running = true;
-        this._Window = WebWindow.create(new WindowProps(this.getTitle, this.getWindowWidth, this.getWindowHeight));
+        this._Window = WebWindow.create(new WindowProps(this.getTitle(), this.getWindowWidth(), this.getWindowHeight()));
         this._Window.setEventCallback(this.onEvent);
         this._LayerStack = new LayerStack();
         CorvusLogger.coreLogger.info('Application constructed with ', this._Running, this._Window, this._LayerStack);
