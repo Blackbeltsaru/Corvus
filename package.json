@@ -9,7 +9,7 @@
         "url": "https://github.com/Blackbeltsaru/Corvus.git"
     },
     "scripts": {
-        "build": "rmdir /s distribution && babel src --presets babel-preset-es2015 --out-dir distribution"
+        "build": "rmdir /s /q distribution && babel src --presets babel-preset-es2015 --out-dir distribution"
     },
     "dependencies": {
         "gl-matrix": "^3.0.0"
